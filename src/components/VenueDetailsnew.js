@@ -10,7 +10,7 @@ import {
 import "../styles/VenueDetailsnew.css";
 import HelpFormWidget from "./HelpFormWidget";
 
-const VENUE_URL = "https://playo.co/_next/data/F8G8ypLIqaoTgwKPXMu7e/venues/";
+const VENUE_URL = "https://serverforsportsbuddy.onrender.com/api/venues/";
 
 const VenueDetailsNew = () => {
   const { city, activeKey } = useParams();
@@ -21,7 +21,7 @@ const VenueDetailsNew = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `${VENUE_URL}${city}/${activeKey}.json`;
+        const url = `${VENUE_URL}${city}/${activeKey}`;
         const response = await fetch(url);
         const jsonData = await response.json();
         setVenDet(jsonData?.pageProps?.venueDetails?.venueInfo);
