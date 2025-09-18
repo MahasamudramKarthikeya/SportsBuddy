@@ -1,0 +1,22 @@
+/* BookingSuccessful.css */
+.booking-success-wrapper {
+  text-align: center;
+  padding: 40px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.back-home-button {
+  margin-top: 20px;
+  background-color: #2b64d6;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.back-home-button:hover {
+  background-color: #204cb3;
+}

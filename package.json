@@ -1,0 +1,28 @@
+{
+  "name": "namaste-react",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-icons": "^5.5.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^7.9.1",
+    "react-select": "^5.10.2",
+    "react-slick": "^0.31.0",
+    "slick-carousel": "^1.8.1",
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-redux": "^8.1.1"
+  }
+}

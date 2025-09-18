@@ -1,0 +1,169 @@
+.page-wrapper {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.back-button {
+  color: #2b64d6;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.venue-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.left-panel {
+  flex: 2;
+  min-width: 300px;
+}
+
+.right-panel {
+  flex: 1;
+  min-width: 280px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-image {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.no-images {
+  text-align: center;
+  font-style: italic;
+  margin: 20px 0;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+.sports-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sport-card {
+  width: 64px;
+  height: 64px;
+  border-radius: 6px;
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sport-icon {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.amenities-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.amenity-tag {
+  background-color: #e0e0e0;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.booking-btn-wrapper {
+  margin-top: 10px;
+}
+
+.book-now-btn {
+  background-color: #2db84c;
+  color: #fff;
+  padding: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(45, 184, 76, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.book-now-btn:hover {
+  background-color: #27a83f;
+}
+
+.rating-wrapper {
+  margin-top: 20px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.safe-tag {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  color: #2db84c;
+  font-weight: 500;
+}
+
+.shield-icon {
+  margin-right: 6px;
+}
+
+.icon {
+  margin-right: 6px;
+}
+
+.info-section {
+  margin-top: 20px;
+}
+
+.venue-map {
+  border-radius: 8px;
+  margin-top: 15px;
+}

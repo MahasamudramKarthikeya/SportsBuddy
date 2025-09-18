@@ -1,0 +1,129 @@
+.home-container-bg {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.home-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* dim overlay */
+  z-index: 0;
+}
+
+.home-container-bg > *:not(.home-overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+.home-main-heading {
+  font-family: "Arial", sans-serif;
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 15px;
+  font-weight: 400;
+  user-select: none;
+}
+
+.home-highlight {
+  font-weight: 700;
+  font-style: italic;
+  color: #d2d521; /* bright yellow-green */
+}
+
+/* Search area wrapper */
+.search-area-wrapper {
+  width: 450px;
+  max-width: 90vw;
+  position: relative;
+}
+
+/* Search bar */
+.search-bar-custom {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 7px 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 14px;
+}
+
+/* Search icon */
+.icon-search {
+  font-size: 16px;
+  color: #bbb;
+  margin-right: 8px;
+  user-select: none;
+}
+
+/* Input */
+.input-search-custom {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  color: #222;
+  user-select: text;
+  padding: 5px 0;
+  font-family: "Arial", sans-serif;
+}
+
+/* Locate button */
+.btn-locate {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #bbb;
+  font-size: 18px;
+  margin-left: 8px;
+  user-select: none;
+  padding: 4px;
+  transition: color 0.2s ease-in-out;
+}
+.btn-locate:hover {
+  color: #d2d521;
+}
+
+/* Suggestions dropdown */
+.list-suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  max-height: 180px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  z-index: 5;
+}
+
+/* Suggestion items */
+.list-suggestions li {
+  padding: 8px 15px;
+  cursor: pointer;
+  color: #222;
+  user-select: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-suggestions li:hover {
+  background-color: #f1f1f1;
+}

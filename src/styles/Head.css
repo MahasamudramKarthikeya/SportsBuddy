@@ -1,0 +1,167 @@
+/* ===== HEADER ===== */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+/* ===== Logo Section ===== */
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link img {
+  height: 40px;
+  width: auto;
+}
+
+/* ===== Hamburger ===== */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: black;
+}
+
+/* ===== Right Section ===== */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* ===== Nav Links ===== */
+.nav-section .nav-list {
+  display: flex;
+  list-style: none;
+  gap: 44px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 8px;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.nav-list li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.nav-list li a:hover,
+.nav-list li a.active {
+  color: #00b157;
+}
+
+.nav-list li a.active::after {
+  background-color: #00b157;
+}
+
+/* ===== City Selector (Fix long names) ===== */
+.city-selector-section {
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+  min-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+/* Button inside city selector */
+.city-selector-section button,
+.city-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00b157;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.city-selector-section button svg {
+  flex-shrink: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  #header {
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 1100;
+  }
+
+  .right-section {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    display: none;
+    padding: 10px 0;
+    background-color: white;
+  }
+
+  .right-section.open {
+    display: flex;
+  }
+
+  .nav-section .nav-list {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding-left: 20px;
+  }
+
+  .city-selector-section {
+    width: 100%;
+    padding: 10px 20px;
+    max-width: none;
+  }
+
+  .city-selector-section button {
+    width: 100%;
+  }
+}
