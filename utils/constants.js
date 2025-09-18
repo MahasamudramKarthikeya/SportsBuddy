@@ -2,7 +2,7 @@ export const IMG_URL =
   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660";
 
 export const LOGO =
-  "https://i.ibb.co/ymq58cyy/Picsart-25-09-16-17-36-48-173.png";
+  "https://i.ibb.co/Y70R4CBY/Picsart-25-09-18-21-57-46-332.jpg";
 
 export const HOME_BG =
   "https://wallpapers.com/images/hd/table-tennis-in-basement-wlmedk9xnee9tp0f.jpg";
