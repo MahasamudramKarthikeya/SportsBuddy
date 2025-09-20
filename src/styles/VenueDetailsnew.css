@@ -1,169 +1,334 @@
-.page-wrapper {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+
+:root {
+  --vdn-green: #00b157;
+  --font-primary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-title: "Poppins", sans-serif;
 }
 
-.back-button {
-  color: #2b64d6;
+body {
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.vdn-venue-page {
+  max-width: 1200px;
+  margin: 20px auto 40px;
+  padding: 0 16px;
+  color: #111;
+  user-select: none;
+}
+
+/* Back button */
+.vdn-back-city-btn {
   background: transparent;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
+  border: 2px solid var(--vdn-green);
+  color: var(--vdn-green);
+  padding: 8px 18px;
+  border-radius: 12px;
   cursor: pointer;
-  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.vdn-back-city-btn:hover,
+.vdn-back-city-btn:focus {
+  background-color: var(--vdn-green);
+  color: white;
+  outline: none;
 }
 
-.venue-title {
-  font-size: 28px;
-  font-weight: bold;
+/* Header */
+.vdn-venue-header {
+  text-align: center;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
+.vdn-venue-title {
+  font-family: var(--font-title);
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 6px;
+}
+.vdn-venue-underline {
+  width: 120px;
+  height: 4px;
+  background-color: var(--vdn-green);
+  margin: 0 auto 10px;
+  border-radius: 3px;
+}
+.vdn-venue-area {
+  font-size: 1.1rem;
+  color: #888;
+}
 
-.container {
+/* Columns layout */
+.vdn-venue-columns {
   display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.vdn-left-column {
+  flex: 1.4;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  flex-wrap: wrap;
 }
-
-.left-panel {
-  flex: 2;
-  min-width: 300px;
-}
-
-.right-panel {
+.vdn-right-column {
   flex: 1;
-  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.carousel-wrapper {
+/* Carousel */
+.vdn-carousel-box {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-image {
   width: 100%;
-  max-height: 350px;
+  height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.vdn-carousel-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 16px;
+  transition: opacity 0.8s ease;
 }
-
-.carousel-btn {
+.vdn-carousel-dots {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: #fff;
-  font-size: 24px;
-  padding: 6px 12px;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+.vdn-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
-  z-index: 1;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.vdn-dot:hover,
+.vdn-dot:focus {
+  background-color: white;
+  transform: scale(1.3);
+}
+.vdn-dot.active {
+  background-color: white;
+  transform: scale(1.6);
 }
 
-.prev-btn {
-  left: 10px;
+/* Section Box */
+.vdn-boxed-section {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+  padding: 22px 20px;
 }
 
-.next-btn {
-  right: 10px;
+/* Section titles */
+.vdn-boxed-section h2 {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #111;
 }
 
-.no-images {
-  text-align: center;
-  font-style: italic;
-  margin: 20px 0;
-}
-
-.section {
-  margin-top: 30px;
-}
-
-.sports-grid {
+/* Sports Icons */
+.vdn-sports-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 18px;
 }
-
-.sport-card {
-  width: 64px;
-  height: 64px;
-  border-radius: 6px;
-  background: #f1f1f1;
+.vdn-sport-icon-wrapper {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  border-radius: 12px;
+  background: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.vdn-sport-icon-wrapper:hover,
+.vdn-sport-icon-wrapper:focus {
+  transform: scale(1.15);
+  background: #d8f1dd;
+  z-index: 10;
+}
+.vdn-sport-icon {
+  max-width: 40px;
+  max-height: 40px;
+}
+.vdn-sport-tooltip {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--vdn-green);
+  color: white;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.vdn-sport-icon-wrapper:hover .vdn-sport-tooltip,
+.vdn-sport-icon-wrapper:focus .vdn-sport-tooltip {
+  opacity: 1;
 }
 
-.sport-icon {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.amenities-wrapper {
+/* Amenities */
+.vdn-amenities-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+}
+.vdn-amenity-item {
+  display: flex;
+  align-items: center;
+  background-color: #e3f1df;
+  color: var(--vdn-green);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 3px 6px rgba(0, 177, 87, 0.15);
+}
+.vdn-amenity-icon {
+  margin-right: 8px;
+  font-size: 1.15rem;
 }
 
-.amenity-tag {
-  background-color: #e0e0e0;
-  padding: 6px 10px;
-  border-radius: 12px;
-  font-size: 14px;
+/* Book box */
+.vdn-booking-box {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+  padding: 20px 24px;
 }
-
-.booking-btn-wrapper {
-  margin-top: 10px;
-}
-
-.book-now-btn {
-  background-color: #2db84c;
-  color: #fff;
-  padding: 14px;
-  font-weight: bold;
-  border-radius: 6px;
+.vdn-book-btn {
   width: 100%;
+  background-color: var(--vdn-green);
+  color: white;
   border: none;
+  padding: 16px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(45, 184, 76, 0.5);
   transition: background-color 0.3s ease;
 }
-
-.book-now-btn:hover {
-  background-color: #27a83f;
+.vdn-book-btn:hover,
+.vdn-book-btn:focus {
+  background-color: #008a3f;
+  outline: none;
 }
 
-.rating-wrapper {
-  margin-top: 20px;
-  font-size: 16px;
+/* Rating */
+
+.vdn-rating-star {
+  color: gold;
+  font-size: 1.7rem;
+}
+.vdn-rating-value {
+  font-weight: 700;
+}
+.vdn-rating-count {
+  font-size: 1rem;
+  color: #666;
+}
+
+.vdn-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.vdn-rating-box {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 1.2rem;
 }
 
-.safe-tag {
-  margin-top: 10px;
+.vdn-safe-badge {
   display: flex;
   align-items: center;
-  color: #2db84c;
-  font-weight: 500;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--vdn-green);
+  font-size: 1rem;
+  white-space: nowrap;
 }
 
-.shield-icon {
-  margin-right: 6px;
+/* Info boxes */
+.vdn-info-box {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+  padding: 20px 24px;
+}
+.vdn-info-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: black;
+}
+.vdn-info-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: #333;
 }
 
-.icon {
-  margin-right: 6px;
+/* Map */
+.vdn-map-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+.vdn-map-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 14px;
 }
 
-.info-section {
-  margin-top: 20px;
+/* Loading */
+.vdn-loading {
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 80px 0;
+  color: #555;
 }
 
-.venue-map {
-  border-radius: 8px;
-  margin-top: 15px;
+/* Responsive */
+@media (max-width: 1024px) {
+  .vdn-venue-columns {
+    flex-direction: column;
+  }
 }

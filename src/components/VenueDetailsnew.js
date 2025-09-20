@@ -1,213 +1,224 @@
 import { useParams, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FaStar,
   FaMapMarkerAlt,
   FaPhoneAlt,
-  FaRegClock,
+  FaCheckCircle,
   FaShieldAlt,
+  FaClock,
 } from "react-icons/fa";
 import "../styles/VenueDetailsnew.css";
 import HelpFormWidget from "./HelpFormWidget";
+import VenueDetailsShimmer from "./VenueDetailsShimmer";
 
 const VENUE_URL = "https://serverforsportsbuddy.onrender.com/api/venues/";
+const AUTO_SCROLL_INTERVAL = 5000;
 
-const VenueDetailsNew = () => {
+const VenueDetails = () => {
   const { city, activeKey } = useParams();
   const navigate = useNavigate();
-  const [venDet, setVenDet] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [venue, setVenue] = useState(null);
+  const [allSports, setAllSports] = useState([]);
+  const [imgIndex, setImgIndex] = useState(0);
+  const timerRef = useRef(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchVenue = async () => {
       try {
-        const url = `${VENUE_URL}${city}/${activeKey}`;
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        setVenDet(jsonData?.pageProps?.venueDetails?.venueInfo);
-        setCurrentImageIndex(0);
-      } catch (error) {
-        console.error("Error fetching venue details:", error);
+        const res = await fetch(`${VENUE_URL}${city}/${activeKey}`);
+        const data = await res.json();
+        setVenue(data?.pageProps?.venueDetails?.venueInfo);
+        setAllSports(data?.pageProps?.allSports?.list || []);
+      } catch (err) {
+        console.error(err);
       }
     };
-    fetchData();
+    fetchVenue();
   }, [city, activeKey]);
 
-  if (!venDet) return <div>Loading...</div>;
+  useEffect(() => {
+    if (!venue?.images?.length) return;
+    timerRef.current = setInterval(() => {
+      setImgIndex((prev) => (prev + 1) % venue.images.length);
+    }, AUTO_SCROLL_INTERVAL);
+    return () => clearInterval(timerRef.current);
+  }, [venue]);
+
+  const goToImage = (index) => {
+    clearInterval(timerRef.current);
+    setImgIndex(index);
+  };
+
+  if (!venue)
+    return (
+      <div className="vdn-loading">
+        <VenueDetailsShimmer />
+      </div>
+    );
 
   const {
     name,
-    description,
     address,
     country,
+    area,
     images = [],
     amenities = [],
     avgRating,
+    ratingCount,
     timings,
     inquiryPhone,
     sports = [],
-    isSafeHygiene,
-  } = venDet;
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const generateMapEmbedUrl = (addressStr) => {
-    if (!addressStr) return null;
-    const query = encodeURIComponent(addressStr);
-    return `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-  };
+  } = venue;
 
   const fullAddress = [address, country].filter(Boolean).join(", ");
-  const mapEmbedUrl = generateMapEmbedUrl(fullAddress);
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
+    fullAddress
+  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
-  const handleBookNow = () => {
-    navigate("/booking-successful");
-  };
+  const matchedSports = sports
+    .map((sportId) => allSports.find((s) => s.sportId === sportId))
+    .filter(Boolean);
 
   return (
-    <div className="page-wrapper">
-      <button onClick={() => navigate(`/${city}`)} className="back-button">
+    <div className="vdn-venue-page">
+      <button
+        onClick={() => navigate(`/${city}`)}
+        className="vdn-back-city-btn"
+        aria-label={`Back to ${city}`}
+      >
         ← Back to {city.charAt(0).toUpperCase() + city.slice(1)}
       </button>
 
-      <h1 className="venue-title">{name}</h1>
+      <div className="vdn-venue-header">
+        <h1 className="vdn-venue-title">{name}</h1>
+        <div className="vdn-venue-underline" />
+        <p className="vdn-venue-area">{area || "Unknown area"}</p>
+      </div>
 
-      <div className="container">
-        <div className="left-panel">
-          {images.length > 0 ? (
-            <div className="carousel-wrapper">
-              <button
-                onClick={prevImage}
-                className="carousel-btn prev-btn"
-                aria-label="Previous image"
-              >
-                &#10094;
-              </button>
-              <img
-                src={images[currentImageIndex].url}
-                alt={`Venue Image ${currentImageIndex + 1}`}
-                className="carousel-image"
-              />
-              <button
-                onClick={nextImage}
-                className="carousel-btn next-btn"
-                aria-label="Next image"
-              >
-                &#10095;
-              </button>
-            </div>
-          ) : (
-            <div className="no-images">No images available.</div>
-          )}
-
-          <section className="section">
-            <h3>About Venue</h3>
-            <p>{description || "No description available."}</p>
-          </section>
-
-          <section className="section">
-            <h3>Sports Available</h3>
-            <div className="sports-grid">
-              {sports.length > 0 ? (
-                sports.map((sportCode, idx) => (
-                  <div key={idx} className="sport-card" title={sportCode}>
-                    <img
-                      className="sport-icon"
-                      src={`https://playo.gumlet.io/V3SPORTICONS/${sportCode}.png?w=96&q=75`}
-                      alt={sportCode}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          "https://playo.gumlet.io/V3SPORTICONS/SP2.png?w=96&q=75";
-                      }}
+      <div className="vdn-venue-columns">
+        {/* LEFT SIDE */}
+        <div className="vdn-left-column">
+          <div className="vdn-carousel-box">
+            {images.length > 0 && (
+              <>
+                <img
+                  src={images[imgIndex].url}
+                  alt={`Venue image ${imgIndex + 1}`}
+                  className="vdn-carousel-img"
+                  draggable={false}
+                />
+                <div className="vdn-carousel-dots">
+                  {images.map((_, i) => (
+                    <button
+                      key={i}
+                      className={`vdn-dot ${i === imgIndex ? "active" : ""}`}
+                      onClick={() => goToImage(i)}
+                      aria-label={`Go to image ${i + 1}`}
                     />
-                  </div>
-                ))
-              ) : (
-                <p>No sports available.</p>
-              )}
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          <section className="vdn-boxed-section">
+            <h2>Sports Available</h2>
+            <div className="vdn-sports-list">
+              {matchedSports.map((sport, i) => (
+                <div
+                  key={i}
+                  className="vdn-sport-icon-wrapper"
+                  tabIndex={0}
+                  aria-label={sport.name}
+                  title={sport.name}
+                >
+                  <img
+                    src={sport.v2GrayIcon}
+                    alt={sport.name}
+                    className="vdn-sport-icon"
+                    onError={(e) =>
+                      (e.target.src =
+                        "https://playo.gumlet.io/V3SPORTICONS/SP2.png?w=96&q=75")
+                    }
+                  />
+                  <span className="vdn-sport-tooltip">{sport.name}</span>
+                </div>
+              ))}
             </div>
           </section>
 
-          <section className="section">
-            <h3>Amenities</h3>
-            <div className="amenities-wrapper">
-              {amenities.length > 0 ? (
-                amenities.map((amenity, idx) => (
-                  <span key={idx} className="amenity-tag">
-                    {amenity}
-                  </span>
-                ))
-              ) : (
-                <p>No amenities listed.</p>
-              )}
+          <section className="vdn-boxed-section vdn-amenities-section">
+            <h2>Amenities</h2>
+            <div className="vdn-amenities-list">
+              {amenities.map((am, i) => (
+                <div key={i} className="vdn-amenity-item">
+                  <FaCheckCircle className="vdn-amenity-icon" />
+                  <span>{am}</span>
+                </div>
+              ))}
             </div>
           </section>
         </div>
 
-        <div className="right-panel">
-          <div className="booking-btn-wrapper">
-            <button onClick={handleBookNow} className="book-now-btn">
-              Book Now
-            </button>
+        {/* RIGHT SIDE */}
+        <div className="vdn-right-column">
+          <div className="vdn-booking-box">
+            <button className="vdn-book-btn">Book Now</button>
+
+            <div className="vdn-rating-section">
+              <div className="vdn-rating-row">
+                <div className="vdn-rating-box">
+                  <FaStar className="vdn-rating-star" />
+                  <span className="vdn-rating-value">{avgRating || "N/A"}</span>
+                  {ratingCount && (
+                    <span className="vdn-rating-count">
+                      ({ratingCount} ratings)
+                    </span>
+                  )}
+                </div>
+
+                {avgRating > 4.5 && (
+                  <div className="vdn-safe-badge">
+                    <FaShieldAlt /> Safe & Hygienic
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
-          <div className="rating-wrapper">
-            <FaStar className="star-icon" />
-            <span className="rating-value">{avgRating || "N/A"}</span>
-            <span>(Rate this venue)</span>
-          </div>
-
-          {isSafeHygiene && (
-            <div className="safe-tag">
-              <FaShieldAlt className="shield-icon" />
-              Safe & Hygiene
+          {timings && (
+            <div className="vdn-info-box">
+              <h3 className="vdn-info-title">Timings</h3>
+              <p className="vdn-info-text">
+                <FaClock /> {timings}
+              </p>
             </div>
           )}
 
-          <section className="info-section">
-            <h4>
-              <FaMapMarkerAlt className="icon" />
-              Location
-            </h4>
-            <p>{fullAddress}</p>
-          </section>
+          <div className="vdn-info-box">
+            <h3 className="vdn-info-title">Location</h3>
+            <p className="vdn-info-text">
+              <FaMapMarkerAlt /> {fullAddress}
+            </p>
+            <div className="vdn-map-container">
+              <iframe
+                title="Venue Map"
+                src={mapEmbedUrl}
+                className="vdn-map-frame"
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
 
-          <section className="info-section">
-            <h4>
-              <FaRegClock className="icon" />
-              Timings
-            </h4>
-            <p>{timings || "Not available"}</p>
-          </section>
-
-          <section className="info-section">
-            <h4>
-              <FaPhoneAlt className="icon" />
-              Contact
-            </h4>
-            <p>{inquiryPhone || "Not available"}</p>
-          </section>
-
-          {mapEmbedUrl ? (
-            <iframe
-              title="Venue Location Map"
-              src={mapEmbedUrl}
-              width="100%"
-              height="250"
-              className="venue-map"
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          ) : (
-            <p>No map available.</p>
-          )}
+          <div className="vdn-info-box">
+            <h3 className="vdn-info-title">Contact</h3>
+            <p className="vdn-info-text">
+              <FaPhoneAlt /> {inquiryPhone || "N/A"}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -216,4 +227,4 @@ const VenueDetailsNew = () => {
   );
 };
 
-export default VenueDetailsNew;
+export default VenueDetails;
