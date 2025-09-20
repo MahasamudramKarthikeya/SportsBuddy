@@ -164,7 +164,12 @@ const VenueDetails = () => {
         {/* RIGHT SIDE */}
         <div className="vdn-right-column">
           <div className="vdn-booking-box">
-            <button className="vdn-book-btn">Book Now</button>
+            <button
+              className="vdn-book-btn"
+              onClick={() => navigate(`/booking-successful`)}
+            >
+              Book Now
+            </button>
 
             <div className="vdn-rating-section">
               <div className="vdn-rating-row">
