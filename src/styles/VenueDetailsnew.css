@@ -50,11 +50,21 @@ body {
   font-size: 2.4rem;
   font-weight: 600;
   color: #000;
-  margin: 0 auto 6px; /* Center horizontally and keep bottom margin */
-  display: block; /* Make it block so margin auto works */
-  width: max-content; /* Shrink width to content size */
-  text-align: center; /* Center text inside the element */
+  margin: 0 auto 6px;
+  display: block;
+  text-align: center;
+  /* Remove width: max-content */
+  width: 100%; /* make it responsive */
+  max-width: 100%; /* ensure no overflow */
+  overflow-wrap: break-word; /* break long words */
+  word-break: break-word; /* additional breaking support */
 }
+@media (max-width: 480px) {
+  .vdn-venue-title {
+    font-size: 1.8rem; /* smaller font size */
+  }
+}
+
 .vdn-venue-underline {
   width: 120px;
   height: 4px;
