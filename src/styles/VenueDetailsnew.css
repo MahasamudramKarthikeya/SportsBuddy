@@ -50,7 +50,10 @@ body {
   font-size: 2.4rem;
   font-weight: 600;
   color: #000;
-  margin-bottom: 6px;
+  margin: 0 auto 6px; /* Center horizontally and keep bottom margin */
+  display: block; /* Make it block so margin auto works */
+  width: max-content; /* Shrink width to content size */
+  text-align: center; /* Center text inside the element */
 }
 .vdn-venue-underline {
   width: 120px;
@@ -316,38 +319,37 @@ body {
 }
 
 /* Carousel Arrows */
-/* Professional Carousel Arrows */
 .vdn-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   color: white;
-  padding: 10px;
+  padding: 10px 14px;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
   z-index: 15;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  font-size: 1.4rem;
+  user-select: none;
 }
 
 .vdn-arrow:hover {
-  background-color: var(--vdn-green);
-  color: white;
-  /* transform: scale(1.1); */
+  color: #00b157;
+
+  outline: none;
 }
 
 .vdn-arrow-left {
-  left: 16px;
+  left: 12px;
 }
 
 .vdn-arrow-right {
-  right: 16px;
+  right: 12px;
 }
 
 /* Smaller and more subtle dots */

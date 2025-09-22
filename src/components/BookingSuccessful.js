@@ -1,5 +1,6 @@
 // BookingSuccessful.js
 import { useNavigate } from "react-router";
+import { FaCheckCircle, FaArrowLeft } from "react-icons/fa";
 import "../styles/BookingSuccessful.css";
 
 const BookingSuccessful = () => {
@@ -7,13 +8,14 @@ const BookingSuccessful = () => {
 
   return (
     <div className="booking-success-wrapper">
-      <h1>✅ Booking Successful!</h1>
+      <FaCheckCircle className="success-icon" />
+      <h1>Booking Successful!</h1>
       <p>
         Thank you for booking with us. We look forward to seeing you at the
         venue.
       </p>
       <button onClick={() => navigate("/")} className="back-home-button">
-        ← Back to Home
+        <FaArrowLeft className="arrow-icon" /> Back to Home
       </button>
     </div>
   );

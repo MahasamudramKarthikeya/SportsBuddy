@@ -1,22 +1,84 @@
-/* BookingSuccessful.css */
+/* Make wrapper fit content nicely and center without scroll */
 .booking-success-wrapper {
+  min-height: 60vh; /* smaller height, enough to center content vertically */
+  max-width: 480px; /* limit max width for readability */
+  margin: 5vh auto; /* center horizontally and some vertical margin */
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background: #f9fafb; */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
   text-align: center;
-  padding: 40px;
-  max-width: 600px;
-  margin: auto;
+  border-radius: 12px;
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+}
+
+.success-icon {
+  color: #28a745;
+  font-size: 72px; /* smaller icon */
+  margin-bottom: 20px;
+  animation: bounceIn 0.8s ease forwards;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+h1 {
+  font-size: 2rem; /* smaller font size */
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #555;
 }
 
 .back-home-button {
-  margin-top: 20px;
-  background-color: #2b64d6;
-  color: white;
-  padding: 12px 24px;
-  font-size: 16px;
+  background: none;
   border: none;
-  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #28a745;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.back-home-button:hover {
-  background-color: #204cb3;
+.back-home-button:hover,
+.back-home-button:focus {
+  background-color: #28a745;
+  color: #fff;
+  outline: none;
+}
+
+.arrow-icon {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.back-home-button:hover .arrow-icon,
+.back-home-button:focus .arrow-icon {
+  transform: translateX(-6px);
 }
