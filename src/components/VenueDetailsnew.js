@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import {
   FaStar,
   FaMapMarkerAlt,
@@ -7,6 +8,8 @@ import {
   FaCheckCircle,
   FaShieldAlt,
   FaClock,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import "../styles/VenueDetailsnew.css";
 import HelpFormWidget from "./HelpFormWidget";
@@ -15,39 +18,116 @@ import VenueDetailsShimmer from "./VenueDetailsShimmer";
 const VENUE_URL = "https://serverforsportsbuddy.onrender.com/api/venues/";
 const AUTO_SCROLL_INTERVAL = 5000;
 
+// Helper function to slugify city names
+const slugifyCity = (name) =>
+  name?.split(",")[0]?.trim()?.toLowerCase()?.replace(/\s+/g, "-");
+
 const VenueDetails = () => {
-  const { city, activeKey } = useParams();
+  const { city: cityFromParams, activeKey } = useParams();
   const navigate = useNavigate();
+
+  const selectedCity = useSelector((state) => state.city.selectedCity);
+  const selectedCitySlug = slugifyCity(selectedCity?.name);
+
   const [venue, setVenue] = useState(null);
   const [allSports, setAllSports] = useState([]);
   const [imgIndex, setImgIndex] = useState(0);
   const timerRef = useRef(null);
+  const interactionTimeoutRef = useRef(null);
 
+  // Scroll to top + fetch venue data
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const fetchVenue = async () => {
       try {
-        const res = await fetch(`${VENUE_URL}${city}/${activeKey}`);
+        const res = await fetch(`${VENUE_URL}${cityFromParams}/${activeKey}`);
         const data = await res.json();
         setVenue(data?.pageProps?.venueDetails?.venueInfo);
         setAllSports(data?.pageProps?.allSports?.list || []);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching venue:", err);
       }
     };
-    fetchVenue();
-  }, [city, activeKey]);
 
+    fetchVenue();
+  }, [cityFromParams, activeKey]);
+
+  // Auto-scroll function
+  const startAutoScroll = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+
+    timerRef.current = setInterval(() => {
+      setImgIndex((prev) =>
+        venue && venue.images.length > 0 ? (prev + 1) % venue.images.length : 0
+      );
+    }, AUTO_SCROLL_INTERVAL);
+  };
+
+  // Start auto-scroll when venue images load
   useEffect(() => {
     if (!venue?.images?.length) return;
-    timerRef.current = setInterval(() => {
-      setImgIndex((prev) => (prev + 1) % venue.images.length);
-    }, AUTO_SCROLL_INTERVAL);
+
+    startAutoScroll();
+
     return () => clearInterval(timerRef.current);
   }, [venue]);
 
-  const goToImage = (index) => {
+  // Handle manual interaction with carousel (dots/arrows/swipes)
+  const handleUserInteraction = (newIndex) => {
     clearInterval(timerRef.current);
-    setImgIndex(index);
+    setImgIndex(newIndex);
+
+    if (interactionTimeoutRef.current)
+      clearTimeout(interactionTimeoutRef.current);
+
+    // Restart auto-scroll after 5 seconds of inactivity after manual interaction
+    interactionTimeoutRef.current = setTimeout(() => {
+      startAutoScroll();
+    }, AUTO_SCROLL_INTERVAL);
+  };
+
+  // Left arrow click
+  const prevImage = () => {
+    if (!venue?.images?.length) return;
+    const newIndex = (imgIndex - 1 + venue.images.length) % venue.images.length;
+    handleUserInteraction(newIndex);
+  };
+
+  // Right arrow click
+  const nextImage = () => {
+    if (!venue?.images?.length) return;
+    const newIndex = (imgIndex + 1) % venue.images.length;
+    handleUserInteraction(newIndex);
+  };
+
+  // Swipe handlers for mobile
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+
+  const onTouchStart = (e) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+  };
+
+  const onTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    handleSwipeGesture();
+  };
+
+  const handleSwipeGesture = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const deltaX = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(deltaX) > 50) {
+      // Swipe left
+      if (deltaX > 0) {
+        nextImage();
+      } else {
+        prevImage();
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
   };
 
   if (!venue)
@@ -83,11 +163,11 @@ const VenueDetails = () => {
   return (
     <div className="vdn-venue-page">
       <button
-        onClick={() => navigate(`/${city}`)}
+        onClick={() => navigate(`/${selectedCitySlug || ""}`)}
         className="vdn-back-city-btn"
-        aria-label={`Back to ${city}`}
+        aria-label={`Back to ${selectedCity?.name}`}
       >
-        ← Back to {city.charAt(0).toUpperCase() + city.slice(1)}
+        ← Back to {selectedCity?.name || "City"}
       </button>
 
       <div className="vdn-venue-header">
@@ -99,7 +179,11 @@ const VenueDetails = () => {
       <div className="vdn-venue-columns">
         {/* LEFT SIDE */}
         <div className="vdn-left-column">
-          <div className="vdn-carousel-box">
+          <div
+            className="vdn-carousel-box"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             {images.length > 0 && (
               <>
                 <img
@@ -108,12 +192,29 @@ const VenueDetails = () => {
                   className="vdn-carousel-img"
                   draggable={false}
                 />
+                {/* Left and Right arrows */}
+                <button
+                  className="vdn-arrow vdn-arrow-left"
+                  aria-label="Previous image"
+                  onClick={prevImage}
+                >
+                  <FaChevronLeft />
+                </button>
+                <button
+                  className="vdn-arrow vdn-arrow-right"
+                  aria-label="Next image"
+                  onClick={nextImage}
+                >
+                  <FaChevronRight />
+                </button>
+
+                {/* Dots */}
                 <div className="vdn-carousel-dots">
                   {images.map((_, i) => (
                     <button
                       key={i}
                       className={`vdn-dot ${i === imgIndex ? "active" : ""}`}
-                      onClick={() => goToImage(i)}
+                      onClick={() => handleUserInteraction(i)}
                       aria-label={`Go to image ${i + 1}`}
                     />
                   ))}

@@ -1,0 +1,121 @@
+/* Footer Container */
+.footer-container {
+  background: linear-gradient(to bottom, #f7fdf9, #e8f8f0, #f7fdf9);
+  color: #222;
+  padding: 2rem 1rem 2.5rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-top: 2px solid #00b15722;
+}
+
+/* Motivational Quote Section */
+.footer-quote-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #00b157;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Carousel Section */
+.footer-sports-carousel {
+  overflow: hidden;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.footer-sports-track {
+  display: inline-flex;
+  gap: 1.5rem;
+  animation: scrollIcons 200s linear infinite; /* slower scroll */
+  padding: 0.5rem 0;
+}
+
+.footer-sport-icon-wrapper {
+  display: inline-block;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+  opacity: 0.6; /* ⬅ reduced opacity */
+}
+
+.footer-sport-icon-wrapper:hover {
+  transform: scale(1.1);
+  opacity: 1; /* brighter on hover */
+}
+
+.footer-sport-icon {
+  height: 48px;
+  width: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+  transition: transform 0.2s ease;
+  animation: sparkle 10s ease-in-out infinite;
+}
+
+/* Bottom Branding */
+.footer-bottom-text {
+  margin-top: 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Heart Icon */
+.footer-heart-icon {
+  color: #00b157;
+  font-size: 1.1rem;
+  animation: beat 1.6s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes scrollIcons {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .footer-quote-text {
+    font-size: 0.95rem;
+  }
+
+  .footer-sport-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer-bottom-text {
+    font-size: 0.85rem;
+  }
+}

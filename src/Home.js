@@ -7,8 +7,13 @@ import { FiSearch } from "react-icons/fi";
 import { MdMyLocation } from "react-icons/md";
 import "./Home.css";
 
+// Replace with your valid API key
 const GEO_DB_API_HOST = "wft-geo-db.p.rapidapi.com";
-const GEO_DB_API_KEY = "4bb94db0c9msha5e7677bb5a0eccp154176jsncbb124f8c237"; // Replace with your RapidAPI key
+const GEO_DB_API_KEY = "4bb94db0c9msha5e7677bb5a0eccp154176jsncbb124f8c237";
+
+// Utility to make city name URL-friendly
+const slugifyCity = (name) =>
+  name.split(",")[0].trim().replace(/\s+/g, "-").toLowerCase();
 
 export default function Home() {
   const [searchInput, setSearchInput] = useState("");
@@ -16,6 +21,7 @@ export default function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Fetch city suggestions as user types
   useEffect(() => {
     if (!searchInput) {
       setSuggestions([]);
@@ -58,8 +64,10 @@ export default function Home() {
     setSearchInput(city.name);
     setSuggestions([]);
 
-    dispatch(setSelectedCity(city)); // dispatch full city object
-    navigate("/venues"); // or wherever your venues page route is
+    dispatch(setSelectedCity(city));
+
+    const citySlug = slugifyCity(city.name);
+    navigate(`/${citySlug}`);
   };
 
   const handleLocateMe = () => {
@@ -72,7 +80,7 @@ export default function Home() {
             lng: pos.coords.longitude,
           };
           dispatch(setSelectedCity(currentLoc));
-          navigate("/venues");
+          navigate("/your-location");
         },
         () => alert("Location access denied or unavailable.")
       );

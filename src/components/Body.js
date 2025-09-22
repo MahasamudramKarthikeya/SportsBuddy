@@ -9,7 +9,7 @@ import { FaSearch, FaStar } from "react-icons/fa";
 import { setPageNo } from "../features/citySlice";
 
 const AUTO_SCROLL_LIMIT = 40;
-const CHUNK_SIZE = 16; // Number of cards added per scroll intersection
+const CHUNK_SIZE = 16;
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -23,40 +23,46 @@ const Body = () => {
 
   const [filteredData, setFilteredData] = useState([]);
   const [visibleCount, setVisibleCount] = useState(CHUNK_SIZE);
-  const isFilterActive = useRef(false);
-  const loadedCardCount = useRef(0);
   const [manualLoadTrigger, setManualLoadTrigger] = useState(false);
 
-  // Reset on city change
+  // ✅ NEW STATES for search and filter tracking
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isTopRated, setIsTopRated] = useState(false);
+
+  const loadedCardCount = useRef(0);
+
+  // ✅ Reset all on city change
   useEffect(() => {
-    setFilteredData([]);
-    setVisibleCount(CHUNK_SIZE);
     dispatch(setPageNo(0));
+    setVisibleCount(CHUNK_SIZE);
+    setSearchQuery("");
+    setIsTopRated(false);
   }, [selectedCity, dispatch]);
 
-  // Update filteredData when venueList changes
+  // ✅ Apply filtering logic when venueList, searchQuery or isTopRated changes
   useEffect(() => {
-    setFilteredData(venueList);
-    loadedCardCount.current = venueList.length;
-  }, [venueList]);
+    let data = venueList;
+
+    if (isTopRated) {
+      data = data.filter((res) => res.avgRating > 4);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      data = data.filter((res) => res.name.toLowerCase().includes(q));
+    }
+
+    setFilteredData(data);
+    loadedCardCount.current = data.length;
+    setVisibleCount(CHUNK_SIZE); // Reset visible count on filter change
+  }, [venueList, searchQuery, isTopRated]);
 
   const handleSearch = (e) => {
-    const input = e.target.value.toLowerCase();
-    const filtered = venueList.filter((res) =>
-      res.name.toLowerCase().includes(input)
-    );
-    setFilteredData(filtered);
-    setVisibleCount(CHUNK_SIZE); // Reset count to show first few search results
+    setSearchQuery(e.target.value);
   };
 
   const toggleFilter = () => {
-    if (isFilterActive.current) {
-      setFilteredData(venueList);
-    } else {
-      setFilteredData(venueList.filter((res) => res.avgRating > 4));
-    }
-    isFilterActive.current = !isFilterActive.current;
-    setVisibleCount(CHUNK_SIZE);
+    setIsTopRated((prev) => !prev);
   };
 
   const observer = useRef();
@@ -100,12 +106,19 @@ const Body = () => {
       <div className="navtools">
         <button
           onClick={toggleFilter}
-          className={`filter-button ${isFilterActive.current ? "active" : ""}`}
+          className={`filter-button ${isTopRated ? "active" : ""}`}
+          aria-pressed={isTopRated}
         >
-          <FaStar className="btn-icon" />
-          {isFilterActive.current
-            ? "Top Rated Filter ON"
-            : "Apply Top Rated Filter"}
+          <span className="btn-icon-wrapper">
+            <FaStar
+              className={`btn-icon ${
+                isTopRated ? "filled-star" : "outlined-star"
+              }`}
+            />
+          </span>
+          <span className="btn-text">
+            {isTopRated ? "Top Rated Active" : "Show Top Rated"}
+          </span>
         </button>
 
         <span className="search-wrapper">
@@ -114,6 +127,7 @@ const Body = () => {
             id="search-box"
             type="text"
             placeholder="Search your fav venue here!"
+            value={searchQuery}
             onChange={handleSearch}
           />
         </span>

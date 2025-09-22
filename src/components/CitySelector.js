@@ -4,9 +4,11 @@ import { setSelectedCity } from "../features/citySlice";
 import Select, { components } from "react-select";
 import { cities } from "../../utils/constants";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { useNavigate } from "react-router"; // ✅ added for navigation
 
 export default function CitySelector() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ hook to redirect on selection
   const selectedCity = useSelector((state) => state.city.selectedCity);
 
   const cityOptions = Object.entries(cities).map(([cityName, coords]) => ({
@@ -136,6 +138,14 @@ export default function CitySelector() {
     }),
   };
 
+  const handleCityChange = (selected) => {
+    dispatch(setSelectedCity(selected.value));
+
+    // ✅ Redirect to /city/<city-name>
+    const cityName = selected.value.name;
+    navigate(`/${encodeURIComponent(cityName)}`);
+  };
+
   return (
     <div className="city-selector-modern">
       <Select
@@ -145,7 +155,7 @@ export default function CitySelector() {
             ? options.find((opt) => opt.value.name === selectedCity.name)
             : null
         }
-        onChange={(selected) => dispatch(setSelectedCity(selected.value))}
+        onChange={handleCityChange}
         styles={customStyles}
         placeholder="Select a city..."
         isSearchable
