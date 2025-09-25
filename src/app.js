@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/dist/react";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
@@ -20,6 +21,7 @@ import VenueDetailsnew from "./components/VenueDetailsnew";
 import BookingSuccessful from "./components/BookingSuccessful";
 import Footer from "./components/Footer";
 
+// ScrollToTop component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -30,6 +32,8 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Layout component
+// Layout component
 const AppLayout = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/" || location.pathname === "/home";
@@ -47,6 +51,9 @@ const AppLayout = () => {
       <Outlet context={{ selectedCity, setSelectedCity }} />
 
       {!isHomePage && <Footer />}
+
+      {/* Add Analytics here */}
+      <Analytics />
     </>
   );
 };
