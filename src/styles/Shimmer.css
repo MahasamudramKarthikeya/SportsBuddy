@@ -1,4 +1,3 @@
-/* Container for all shimmer cards */
 .shimmer-container {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +6,6 @@
   padding: 20px;
 }
 
-/* Individual shimmer card */
 .shimmer-card {
   width: 340px;
   border: 2px solid #eee;
@@ -17,7 +15,6 @@
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Image wrapper */
 .shimmer-image-wrapper {
   position: relative;
   width: 100%;
@@ -26,7 +23,6 @@
   overflow: hidden;
 }
 
-/* Shimmer image block */
 .shimmer-image {
   width: 100%;
   height: 100%;
@@ -34,7 +30,6 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Rating wrapper (top right corner) */
 .shimmer-rating-wrapper {
   position: absolute;
   top: 8px;
@@ -45,7 +40,6 @@
   z-index: 2;
 }
 
-/* Rating score shimmer */
 .shimmer-rating-score {
   height: 18px;
   background: #ccc;
@@ -53,7 +47,6 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Votes shimmer */
 .shimmer-rating-votes {
   height: 16px;
   background: #ddd;
@@ -62,12 +55,10 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Content section */
 .shimmer-content {
   padding: 12px 14px 14px;
 }
 
-/* Title shimmer */
 .shimmer-title {
   width: 60%;
   height: 18px;
@@ -77,7 +68,6 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Location shimmer */
 .shimmer-location {
   width: 40%;
   height: 14px;
@@ -87,14 +77,12 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Icons container */
 .shimmer-icons {
   display: flex;
   gap: 6px;
   margin-bottom: 10px;
 }
 
-/* Each shimmer icon */
 .shimmer-icon {
   width: 30px;
   height: 30px;
@@ -103,13 +91,11 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Tags container */
 .shimmer-tags {
   display: flex;
   justify-content: space-between;
 }
 
-/* Each tag shimmer */
 .shimmer-tag {
   width: 45%;
   height: 14px;
@@ -118,7 +104,6 @@
   animation: shimmer 1.6s infinite linear;
 }
 
-/* Shimmer animation */
 @keyframes shimmer {
   0% {
     background-position: -400px 0;

@@ -5,6 +5,7 @@ import {
   FaExternalLinkAlt,
   FaPhoneAlt,
   FaCodeBranch,
+  FaHeart,
 } from "react-icons/fa";
 import "./styles/Contact.css";
 
@@ -19,20 +20,9 @@ const ContactUs = () => {
       <p className="intro">
         Got a question, feedback, or collaboration idea? We'd love to hear from
         you! Sports Buddy is an open educational project powered by real-time
-        sports data and built with ❤️ for learning and innovation.
+        sports data and built with <FaHeart color="red" /> for learning and
+        innovation.
       </p>
-
-      {/* <div className="section">
-        <h2>
-          <FaPhoneAlt className="icon" /> Reach Out
-        </h2>
-        <p>
-          <strong>Email:</strong> support@sportsbuddy.dev (placeholder)
-        </p>
-        <p>
-          <strong>Phone:</strong> +91-XXXXXXXXXX (optional or placeholder)
-        </p>
-      </div> */}
 
       <div className="section">
         <h2>

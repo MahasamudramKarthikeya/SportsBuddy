@@ -20,7 +20,6 @@ import VenueDetailsnew from "./components/VenueDetailsnew";
 import BookingSuccessful from "./components/BookingSuccessful";
 import Footer from "./components/Footer";
 
-// ScrollToTop component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -31,7 +30,6 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Layout component
 const AppLayout = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/" || location.pathname === "/home";

@@ -1,8 +1,7 @@
-/* Make wrapper fit content nicely and center without scroll */
 .booking-success-wrapper {
-  min-height: 60vh; /* smaller height, enough to center content vertically */
-  max-width: 480px; /* limit max width for readability */
-  margin: 5vh auto; /* center horizontally and some vertical margin */
+  min-height: 60vh;
+  max-width: 480px;
+  margin: 5vh auto;
   padding: 20px 30px;
   display: flex;
   flex-direction: column;
@@ -18,7 +17,7 @@
 
 .success-icon {
   color: #28a745;
-  font-size: 72px; /* smaller icon */
+  font-size: 72px;
   margin-bottom: 20px;
   animation: bounceIn 0.8s ease forwards;
 }
@@ -41,7 +40,7 @@
 }
 
 h1 {
-  font-size: 2rem; /* smaller font size */
+  font-size: 2rem;
   margin-bottom: 12px;
 }
 

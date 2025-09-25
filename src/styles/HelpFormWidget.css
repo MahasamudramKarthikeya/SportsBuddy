@@ -6,7 +6,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Help Button (before form opens) */
 .help-toggle-btn {
   background-color: #ffa600;
   color: white;
@@ -30,7 +29,6 @@
   font-size: 18px;
 }
 
-/* Form Container */
 .help-form-container {
   width: 320px;
   background: white;
@@ -68,7 +66,6 @@
   cursor: pointer;
 }
 
-/* Input Groups */
 .form-group {
   padding: 10px 15px 0 15px;
   position: relative;
@@ -94,7 +91,6 @@
   align-items: center;
 }
 
-/* Styled +91 Code Box */
 .country-code-box {
   width: 60px;
   padding: 10px;
@@ -107,12 +103,10 @@
   pointer-events: none;
 }
 
-/* Textarea */
 textarea {
   resize: none;
 }
 
-/* Validation */
 .input-error {
   border-color: red;
 }
@@ -123,7 +117,6 @@ textarea {
   margin: 4px 0 0 0;
 }
 
-/* Status Message (above buttons) */
 .status-msg {
   padding: 10px 15px;
   font-size: 14px;
@@ -148,7 +141,6 @@ textarea {
   font-size: 16px;
 }
 
-/* Action Buttons */
 .help-form-actions {
   display: flex;
   justify-content: space-between;
@@ -176,7 +168,6 @@ textarea {
   cursor: pointer;
 }
 
-/* Animations */
 @keyframes shake {
   0% {
     transform: translateX(0);

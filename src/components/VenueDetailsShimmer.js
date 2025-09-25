@@ -1,24 +1,19 @@
 import React from "react";
-import "../styles/VenueDetailsShimmer.css"; // Separate CSS file for shimmer styles
+import "../styles/VenueDetailsShimmer.css";
 
 const VenueDetailsShimmer = () => {
   return (
     <div className="vdn-venue-page shimmer-wrapper">
-      {/* Back button placeholder */}
       <div className="shimmer-btn shimmer-back-btn"></div>
 
-      {/* Header */}
       <div className="vdn-venue-header">
         <div className="shimmer-title shimmer-venue-title"></div>
         <div className="shimmer-underline"></div>
         <div className="shimmer-text shimmer-venue-area"></div>
       </div>
 
-      {/* Columns */}
       <div className="vdn-venue-columns">
-        {/* LEFT COLUMN */}
         <div className="vdn-left-column">
-          {/* Carousel */}
           <div className="vdn-carousel-box shimmer-carousel">
             <div className="shimmer-image"></div>
             <div className="shimmer-dots">
@@ -28,7 +23,6 @@ const VenueDetailsShimmer = () => {
             </div>
           </div>
 
-          {/* Sports Available */}
           <section className="vdn-boxed-section shimmer-section">
             <div className="shimmer-section-title"></div>
             <div className="vdn-sports-list shimmer-sports-list">
@@ -40,7 +34,6 @@ const VenueDetailsShimmer = () => {
             </div>
           </section>
 
-          {/* Amenities */}
           <section className="vdn-boxed-section shimmer-section">
             <div className="shimmer-section-title"></div>
             <div className="vdn-amenities-list shimmer-amenities-list">
@@ -54,9 +47,7 @@ const VenueDetailsShimmer = () => {
           </section>
         </div>
 
-        {/* RIGHT COLUMN */}
         <div className="vdn-right-column">
-          {/* Book Now Box */}
           <div className="vdn-booking-box shimmer-box">
             <div className="shimmer-btn shimmer-book-btn"></div>
 
@@ -72,13 +63,11 @@ const VenueDetailsShimmer = () => {
             </div>
           </div>
 
-          {/* Timings */}
           <div className="vdn-info-box shimmer-box">
             <div className="shimmer-info-title"></div>
             <div className="shimmer-info-text"></div>
           </div>
 
-          {/* Location */}
           <div className="vdn-info-box shimmer-box">
             <div className="shimmer-info-title"></div>
             <div className="shimmer-info-text"></div>
@@ -87,7 +76,6 @@ const VenueDetailsShimmer = () => {
             </div>
           </div>
 
-          {/* Contact */}
           <div className="vdn-info-box shimmer-box">
             <div className="shimmer-info-title"></div>
             <div className="shimmer-info-text"></div>

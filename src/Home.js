@@ -7,11 +7,9 @@ import { FiSearch } from "react-icons/fi";
 import { MdMyLocation } from "react-icons/md";
 import "./Home.css";
 
-// Replace with your valid API key
 const GEO_DB_API_HOST = process.env.REACT_APP_GEO_DB_API_HOST;
 const GEO_DB_API_KEY = process.env.REACT_APP_GEO_DB_API_KEY;
 
-// Utility to make city name URL-friendly
 const slugifyCity = (name) =>
   name.split(",")[0].trim().replace(/\s+/g, "-").toLowerCase();
 
@@ -21,7 +19,6 @@ export default function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Fetch city suggestions as user types
   useEffect(() => {
     if (!searchInput) {
       setSuggestions([]);

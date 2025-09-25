@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router"; // or react-router-dom if applicable
+import { Link } from "react-router";
 import "../styles/Footer.css";
 
 const SPORTS_API_ENDPOINT =
@@ -11,7 +11,6 @@ const Footer = () => {
   const [duplicatedIcons, setDuplicatedIcons] = useState([]);
   const scrollRef = useRef(null);
 
-  // Fetch sports icons
   useEffect(() => {
     const fetchSports = async () => {
       try {

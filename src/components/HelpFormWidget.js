@@ -14,7 +14,7 @@ const HelpFormWidget = () => {
   const [errors, setErrors] = useState({});
   const [shake, setShake] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
-  const [statusType, setStatusType] = useState(""); // "success" | "error"
+  const [statusType, setStatusType] = useState("");
   const [sending, setSending] = useState(false);
 
   const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
@@ -70,7 +70,7 @@ const HelpFormWidget = () => {
       phone: formData.phone,
       email: formData.email,
       message: formData.message,
-      download_url: "", // empty, not a download request
+      download_url: "",
     };
 
     try {
@@ -112,7 +112,7 @@ const HelpFormWidget = () => {
       name: formData.name || "User",
       phone: formData.phone || "N/A",
       email: formData.email,
-      message: "", // No message, just download
+      message: "",
       download_url: window.location.href,
     };
 

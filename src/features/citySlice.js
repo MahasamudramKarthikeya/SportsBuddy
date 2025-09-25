@@ -1,4 +1,3 @@
-// src/features/citySlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -15,8 +14,8 @@ export const citySlice = createSlice({
   initialState,
   reducers: {
     setSelectedCity: (state, action) => {
-      state.selectedCity = action.payload; // city object { name, lat, lng }
-      state.pageNo = 0; // reset page on city change
+      state.selectedCity = action.payload;
+      state.pageNo = 0;
     },
     setPageNo: (state, action) => {
       state.pageNo = action.payload;

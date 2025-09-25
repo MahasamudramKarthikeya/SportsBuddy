@@ -6,7 +6,7 @@ import {
   FaCode,
   FaBook,
 } from "react-icons/fa";
-import "./styles/AboutUs.css"; // External CSS for styling
+import "./styles/AboutUs.css";
 
 const AboutUs = () => {
   return (

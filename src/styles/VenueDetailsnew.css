@@ -20,7 +20,6 @@ body {
   user-select: none;
 }
 
-/* Back button */
 .vdn-back-city-btn {
   background: transparent;
   border: 2px solid var(--vdn-green);
@@ -54,14 +53,14 @@ body {
   display: block;
   text-align: center;
   /* Remove width: max-content */
-  width: 100%; /* make it responsive */
-  max-width: 100%; /* ensure no overflow */
-  overflow-wrap: break-word; /* break long words */
-  word-break: break-word; /* additional breaking support */
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 @media (max-width: 480px) {
   .vdn-venue-title {
-    font-size: 1.8rem; /* smaller font size */
+    font-size: 1.8rem;
   }
 }
 
@@ -294,7 +293,6 @@ body {
   color: #333;
 }
 
-/* Map */
 .vdn-map-container {
   position: relative;
   width: 100%;
@@ -313,7 +311,6 @@ body {
   border-radius: 14px;
 }
 
-/* Loading */
 .vdn-loading {
   text-align: center;
   font-size: 1.6rem;
@@ -321,14 +318,12 @@ body {
   color: #555;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .vdn-venue-columns {
     flex-direction: column;
   }
 }
 
-/* Carousel Arrows */
 .vdn-arrow {
   position: absolute;
   top: 50%;
@@ -362,7 +357,6 @@ body {
   right: 12px;
 }
 
-/* Smaller and more subtle dots */
 .vdn-carousel-dots {
   position: absolute;
   bottom: 10px;

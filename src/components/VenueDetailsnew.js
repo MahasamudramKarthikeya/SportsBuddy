@@ -10,6 +10,7 @@ import {
   FaClock,
   FaChevronLeft,
   FaChevronRight,
+  FaArrowLeft,
 } from "react-icons/fa";
 import "../styles/VenueDetailsnew.css";
 import HelpFormWidget from "./HelpFormWidget";
@@ -18,7 +19,6 @@ import VenueDetailsShimmer from "./VenueDetailsShimmer";
 const VENUE_URL = "https://serverforsportsbuddy.onrender.com/api/venues/";
 const AUTO_SCROLL_INTERVAL = 5000;
 
-// Helper function to slugify city names
 const slugifyCity = (name) =>
   name?.split(",")[0]?.trim()?.toLowerCase()?.replace(/\s+/g, "-");
 
@@ -35,7 +35,6 @@ const VenueDetails = () => {
   const timerRef = useRef(null);
   const interactionTimeoutRef = useRef(null);
 
-  // Scroll to top + fetch venue data
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -53,7 +52,6 @@ const VenueDetails = () => {
     fetchVenue();
   }, [cityFromParams, activeKey]);
 
-  // Auto-scroll function
   const startAutoScroll = () => {
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -64,7 +62,6 @@ const VenueDetails = () => {
     }, AUTO_SCROLL_INTERVAL);
   };
 
-  // Start auto-scroll when venue images load
   useEffect(() => {
     if (!venue?.images?.length) return;
 
@@ -73,7 +70,6 @@ const VenueDetails = () => {
     return () => clearInterval(timerRef.current);
   }, [venue]);
 
-  // Handle manual interaction with carousel (dots/arrows/swipes)
   const handleUserInteraction = (newIndex) => {
     clearInterval(timerRef.current);
     setImgIndex(newIndex);
@@ -81,27 +77,23 @@ const VenueDetails = () => {
     if (interactionTimeoutRef.current)
       clearTimeout(interactionTimeoutRef.current);
 
-    // Restart auto-scroll after 5 seconds of inactivity after manual interaction
     interactionTimeoutRef.current = setTimeout(() => {
       startAutoScroll();
     }, AUTO_SCROLL_INTERVAL);
   };
 
-  // Left arrow click
   const prevImage = () => {
     if (!venue?.images?.length) return;
     const newIndex = (imgIndex - 1 + venue.images.length) % venue.images.length;
     handleUserInteraction(newIndex);
   };
 
-  // Right arrow click
   const nextImage = () => {
     if (!venue?.images?.length) return;
     const newIndex = (imgIndex + 1) % venue.images.length;
     handleUserInteraction(newIndex);
   };
 
-  // Swipe handlers for mobile
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
@@ -119,7 +111,6 @@ const VenueDetails = () => {
     const deltaX = touchStartX.current - touchEndX.current;
 
     if (Math.abs(deltaX) > 50) {
-      // Swipe left
       if (deltaX > 0) {
         nextImage();
       } else {
@@ -167,7 +158,8 @@ const VenueDetails = () => {
         className="vdn-back-city-btn"
         aria-label={`Back to ${selectedCity?.name}`}
       >
-        ← Back to {selectedCity?.name || "City"}
+        <FaArrowLeft style={{ marginRight: "6px" }} />
+        Back to {selectedCity?.name || "City"}
       </button>
 
       <div className="vdn-venue-header">
@@ -177,7 +169,6 @@ const VenueDetails = () => {
       </div>
 
       <div className="vdn-venue-columns">
-        {/* LEFT SIDE */}
         <div className="vdn-left-column">
           <div
             className="vdn-carousel-box"
@@ -192,7 +183,7 @@ const VenueDetails = () => {
                   className="vdn-carousel-img"
                   draggable={false}
                 />
-                {/* Left and Right arrows */}
+
                 <button
                   className="vdn-arrow vdn-arrow-left"
                   aria-label="Previous image"
@@ -208,7 +199,6 @@ const VenueDetails = () => {
                   <FaChevronRight />
                 </button>
 
-                {/* Dots */}
                 <div className="vdn-carousel-dots">
                   {images.map((_, i) => (
                     <button
@@ -262,7 +252,6 @@ const VenueDetails = () => {
           </section>
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="vdn-right-column">
           <div className="vdn-booking-box">
             <button

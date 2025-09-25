@@ -25,13 +25,11 @@ const Body = () => {
   const [visibleCount, setVisibleCount] = useState(CHUNK_SIZE);
   const [manualLoadTrigger, setManualLoadTrigger] = useState(false);
 
-  // ✅ NEW STATES for search and filter tracking
   const [searchQuery, setSearchQuery] = useState("");
   const [isTopRated, setIsTopRated] = useState(false);
 
   const loadedCardCount = useRef(0);
 
-  // ✅ Reset all on city change
   useEffect(() => {
     dispatch(setPageNo(0));
     setVisibleCount(CHUNK_SIZE);
@@ -39,7 +37,6 @@ const Body = () => {
     setIsTopRated(false);
   }, [selectedCity, dispatch]);
 
-  // ✅ Apply filtering logic when venueList, searchQuery or isTopRated changes
   useEffect(() => {
     let data = venueList;
 
@@ -54,7 +51,7 @@ const Body = () => {
 
     setFilteredData(data);
     loadedCardCount.current = data.length;
-    setVisibleCount(CHUNK_SIZE); // Reset visible count on filter change
+    setVisibleCount(CHUNK_SIZE);
   }, [venueList, searchQuery, isTopRated]);
 
   const handleSearch = (e) => {

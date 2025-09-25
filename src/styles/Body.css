@@ -1,6 +1,5 @@
-/* ==========================
-   Venue Cards Container
-========================== */
+/*
+   Venue Cards Container*/
 .rescontainer {
   max-width: 100%;
   background-color: #f5f7f8;
@@ -34,9 +33,8 @@
   }
 }
 
-/* ==========================
-   Top Filter + Search Bar
-========================== */
+/* 
+   Top Filter + Search Bar */
 .navtools {
   display: flex;
   justify-content: space-between;
@@ -97,9 +95,8 @@
   font-size: 16px;
 }
 
-/* ==========================
-   Load More Button
-========================== */
+/* 
+   Load More Button */
 .load-more-container {
   display: flex;
   justify-content: center;
@@ -147,9 +144,8 @@
   font-weight: 500;
 }
 
-/* ==========================
-   Top Filter + Search Bar
-========================== */
+/* 
+   Top Filter + Search Bar*/
 .filter-button {
   background-color: transparent;
   color: #00b157;
@@ -165,7 +161,7 @@
   gap: 8px;
 }
 
-/* ✅ Active or Hover state */
+/* Active or Hover state */
 .filter-button:hover,
 .filter-button.active {
   background-color: #00b157;
@@ -173,9 +169,8 @@
   border-color: #00b157;
 }
 
-/* -------------------------
-   Filter Button Styling
--------------------------- */
+/*
+   Filter Button Styling */
 
 .filter-button {
   background-color: transparent;
@@ -205,9 +200,8 @@
   border-color: #00b157;
 }
 
-/* -------------------------
-   Star Icon Styling
--------------------------- */
+/* 
+   Star Icon Styling*/
 .btn-icon {
   font-size: 16px;
   transition: color 0.3s ease;

@@ -1,4 +1,3 @@
-// BookingSuccessful.js
 import { useNavigate } from "react-router";
 import { FaCheckCircle, FaArrowLeft } from "react-icons/fa";
 import "../styles/BookingSuccessful.css";

@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/VenueCard.css";
 import { FaStar } from "react-icons/fa";
+import { FaShieldAlt, FaPlus } from "react-icons/fa";
 
 export default function VenueCard({ resData1 }) {
   const {
@@ -64,7 +65,6 @@ export default function VenueCard({ resData1 }) {
           ))}
         </div>
 
-        {/* Tags */}
         <div className="venue-card-tags">
           {isBookable && <span className="venue-tag bookable">BOOKABLE</span>}
 

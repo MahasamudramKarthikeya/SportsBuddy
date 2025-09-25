@@ -5,7 +5,8 @@ import { LOGO } from "../../utils/constants";
 import CitySelector from "./CitySelector";
 import "../styles/Head.css";
 
-// Utility to slugify city names
+import { FiMenu } from "react-icons/fi";
+
 const slugifyCity = (name) =>
   name?.split(",")[0]?.trim()?.toLowerCase()?.replace(/\s+/g, "-");
 
@@ -25,11 +26,9 @@ const Head = () => {
     { path: "/contact", label: "Contact Us" },
   ];
 
-  // ✅ Match Home ONLY when exactly at / or /citySlug
   const isHomeActive = () => {
-    const pathParts = currentPath.split("/").filter(Boolean); // removes empty strings
+    const pathParts = currentPath.split("/").filter(Boolean);
 
-    // Match Home if path is "/" or "/citySlug"
     if (
       currentPath === "/" ||
       (pathParts.length === 1 && pathParts[0] === citySlug)
@@ -49,7 +48,7 @@ const Head = () => {
       </div>
 
       <button className="hamburger" onClick={toggleMobileMenu}>
-        ☰
+        <FiMenu size={24} />
       </button>
 
       <div className={`right-section ${isMobileMenuOpen ? "open" : ""}`}>
