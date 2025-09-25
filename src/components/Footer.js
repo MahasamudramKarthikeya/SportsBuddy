@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router"; // or react-router-dom if applicable
 import "../styles/Footer.css";
 
 const SPORTS_API_ENDPOINT =
   "https://serverforsportsbuddy.onrender.com/api/venues/Hyderabad/smash-pro-arena-pickleball-begumpet-hyderabad";
 
-const quotes = [
-  "Winners never quit and quitters never win.",
-  "Champions keep playing until they get it right.",
-  "Push yourself because no one else is going to do it for you.",
-  "It's not about perfect. It's about effort.",
-  "Great things never came from comfort zones.",
-  "Train insane or remain the same.",
-  "Don't stop when you're tired. Stop when you're done.",
-  "You miss 100% of the shots you don't take.",
-  "Hard work beats talent when talent doesn't work hard.",
-  "Pain is temporary. Pride is forever.",
-];
-
 const Footer = () => {
-  const [sportIcons, setSportIcons] = useState([]);
+  const [originalIcons, setOriginalIcons] = useState([]);
+  const [duplicatedIcons, setDuplicatedIcons] = useState([]);
+  const scrollRef = useRef(null);
 
-  // Pick one random quote on first render
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-
+  // Fetch sports icons
   useEffect(() => {
     const fetchSports = async () => {
       try {
@@ -38,7 +26,8 @@ const Footer = () => {
               v2GrayIcon: s.v2GrayIcon,
               name: s.name,
             }));
-          setSportIcons(filtered);
+          setOriginalIcons(filtered);
+          setDuplicatedIcons([...filtered, ...filtered]);
         }
       } catch (err) {
         console.error("Error fetching sports icons:", err);
@@ -47,47 +36,84 @@ const Footer = () => {
     fetchSports();
   }, []);
 
-  // Duplicate icons to create infinite scroll effect
-  const scrollingIcons = [...sportIcons, ...sportIcons];
+  // Infinite scroll effect
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer || duplicatedIcons.length === 0) return;
+
+    let rafId;
+    const speed = 0.5;
+
+    const scrollStep = () => {
+      if (!scrollContainer) return;
+
+      scrollContainer.scrollLeft += speed;
+
+      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+        scrollContainer.scrollLeft = 0;
+      }
+
+      rafId = requestAnimationFrame(scrollStep);
+    };
+
+    rafId = requestAnimationFrame(scrollStep);
+
+    return () => cancelAnimationFrame(rafId);
+  }, [duplicatedIcons]);
 
   return (
-    <footer className="footer-container" aria-label="Sports icons footer">
-      <div className="footer-quote-text">{randomQuote}</div>
+    <footer className="footer-premium">
+      <div className="footer-headline-section">
+        <h2 className="footer-headline">
+          Fuel Your Passion <br />
+          <span className="footer-subtitle">Every sport. Every moment.</span>
+        </h2>
+      </div>
 
-      {scrollingIcons.length > 0 && (
-        <div
-          className="footer-sports-carousel"
-          role="list"
-          aria-label="Scrolling sports icons"
-        >
-          <div className="footer-sports-track">
-            {scrollingIcons.map((sport, index) => (
-              <div
-                key={`${sport.sportId}-${index}`}
-                className="footer-sport-icon-wrapper"
-                role="listitem"
-                title={sport.name}
-              >
-                <img
-                  src={sport.v2GrayIcon}
-                  alt={sport.name}
-                  className="footer-sport-icon"
-                  draggable={false}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      "https://playo.gumlet.io/V3SPORTICONS/SP2.png?w=96&q=75";
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+      <div
+        className="footer-icons-wrapper"
+        aria-label="Popular sports icons scrollable section"
+      >
+        <div className="fade-left"></div>
+        <div className="fade-right"></div>
+
+        <div className="footer-icons-scroll" ref={scrollRef}>
+          {duplicatedIcons.map((sport, index) => (
+            <div
+              key={`${sport.sportId}-${index}`}
+              className="footer-icon-item"
+              title={sport.name}
+              tabIndex={0}
+              aria-label={sport.name}
+            >
+              <img
+                src={sport.v2GrayIcon}
+                alt=""
+                loading="lazy"
+                draggable={false}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://playo.gumlet.io/V3SPORTICONS/SP2.png?w=96&q=";
+                }}
+              />
+              <span className="icon-label">{sport.name}</span>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
 
-      <div className="footer-bottom-text">
-        Powered by passion, sweat &{" "}
-        <FaHeart className="footer-heart-icon pulse" /> by SportsBuddy
+      <div className="footer-bottom-bar">
+        <nav className="footer-nav" aria-label="Footer navigation">
+          <Link to="/">Venues</Link>
+          <Link to="/sports">Sports</Link>
+          <Link to="/about">Community</Link>
+          <Link to="/contact">Contact</Link>
+        </nav>
+
+        <div className="footer-branding" aria-label="Powered by SportsBuddy">
+          Powered by passion <FaHeart className="heart-icon" /> SportsBuddy
+        </div>
       </div>
     </footer>
   );

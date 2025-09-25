@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -8,9 +8,8 @@ import {
   Outlet,
   RouterProvider,
   useLocation,
-} from "react-router"; // Use react-router-dom for browser routing
+} from "react-router";
 
-// Components and Pages
 import Head from "./components/Head";
 import Body from "./components/Body";
 import About from "./About";
@@ -19,34 +18,41 @@ import Error from "./Error";
 import Home from "./Home";
 import VenueDetailsnew from "./components/VenueDetailsnew";
 import BookingSuccessful from "./components/BookingSuccessful";
-import Footer from "./components/Footer"; // Add footer component
+import Footer from "./components/Footer";
 
-// Layout component to wrap routes and maintain layout consistency
+// ScrollToTop component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
+// Layout component
 const AppLayout = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/" || location.pathname === "/home";
 
-  // Lift selectedCity state here for sharing between Head and Body
   const [selectedCity, setSelectedCity] = useState("Hyderabad");
 
   return (
     <>
-      {/* Show Head only if NOT home page */}
+      <ScrollToTop />
+
       {!isHomePage && (
         <Head selectedCity={selectedCity} setSelectedCity={setSelectedCity} />
       )}
 
-      {/* Pass selectedCity and setter down via Outlet context */}
       <Outlet context={{ selectedCity, setSelectedCity }} />
-
-      {/* Footer on all pages */}
 
       {!isHomePage && <Footer />}
     </>
   );
 };
 
-// Define app routes
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -64,7 +70,6 @@ const appRouter = createBrowserRouter([
   },
 ]);
 
-// Render app to root element
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

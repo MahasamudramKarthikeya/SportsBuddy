@@ -8,8 +8,8 @@ import { MdMyLocation } from "react-icons/md";
 import "./Home.css";
 
 // Replace with your valid API key
-const GEO_DB_API_HOST = "wft-geo-db.p.rapidapi.com";
-const GEO_DB_API_KEY = "4bb94db0c9msha5e7677bb5a0eccp154176jsncbb124f8c237";
+const GEO_DB_API_HOST = process.env.REACT_APP_GEO_DB_API_HOST;
+const GEO_DB_API_KEY = process.env.REACT_APP_GEO_DB_API_KEY;
 
 // Utility to make city name URL-friendly
 const slugifyCity = (name) =>

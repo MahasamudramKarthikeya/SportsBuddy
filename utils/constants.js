@@ -31,3 +31,6 @@ export const cities = {
 
 export const VENUE_URL =
   "https://playo.co/_next/data/F8G8ypLIqaoTgwKPXMu7e/venues/";
+
+export const SPORTS_API_ENDPOINT_C =
+  "https://serverforsportsbuddy.onrender.com/api/venues/Hyderabad/smash-pro-arena-pickleball-begumpet-hyderabad";
