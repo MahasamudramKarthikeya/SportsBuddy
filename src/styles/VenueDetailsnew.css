@@ -262,7 +262,7 @@ body {
   font-size: 1.2rem;
 }
 
-.vdn-safe-badge {
+/* .vdn-safe-badge {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -270,9 +270,16 @@ body {
   color: var(--vdn-green);
   font-size: 1rem;
   white-space: nowrap;
-}
+} */
 
 /* Info boxes */
+
+.vdn-info-icon {
+  font-size: 20px;
+  margin-right: 2px;
+  flex-shrink: 0;
+}
+
 .vdn-info-box {
   background: white;
   border-radius: 14px;
@@ -388,4 +395,29 @@ body {
 .vdn-dot.active {
   background-color: white;
   transform: scale(1.7);
+}
+
+.vdn-safe-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--vdn-green);
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.vdn-safe-icon {
+  font-size: 20px;
+}
+
+.detcontainer {
+  max-width: 100%;
+  background-color: #fdfdfd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 10px;
+  justify-content: center;
+  scroll-behavior: smooth;
 }

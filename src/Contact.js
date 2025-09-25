@@ -6,6 +6,7 @@ import {
   FaPhoneAlt,
   FaCodeBranch,
   FaHeart,
+  FaRegCopyright,
 } from "react-icons/fa";
 import "./styles/Contact.css";
 
@@ -61,12 +62,13 @@ const ContactUs = () => {
         </a>
       </div>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <p>
-          © {new Date().getFullYear()} Sports Buddy. Built for educational use
+          <FaRegCopyright className="icon-small" />
+          {new Date().getFullYear()} Sports Buddy. Built for educational use
           only.
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 };

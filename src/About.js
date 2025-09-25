@@ -5,6 +5,7 @@ import {
   FaInfoCircle,
   FaCode,
   FaBook,
+  FaRegCopyright,
 } from "react-icons/fa";
 import "./styles/AboutUs.css";
 
@@ -70,12 +71,13 @@ const AboutUs = () => {
         </p>
       </div>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <p>
-          © {new Date().getFullYear()} Sports Buddy. For learning and
-          educational use only.
+          <FaRegCopyright className="icon-small" />
+          {new Date().getFullYear()} Sports Buddy. For learning and educational
+          use only.
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 };

@@ -111,11 +111,12 @@
 .hygiene {
   color: #6c6c6c;
   font-weight: 500;
+  font-size: 12px;
 }
 
 .tag-icon {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   margin-right: 6px;
   object-fit: contain;
 }
@@ -168,4 +169,10 @@
   width: 100%;
   text-align: center;
   font-weight: 500;
+}
+
+.shield-icon {
+  color: hsl(145, 84%, 39%);
+  margin-right: 2px;
+  vertical-align: middle;
 }

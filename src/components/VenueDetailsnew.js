@@ -16,7 +16,9 @@ import "../styles/VenueDetailsnew.css";
 import HelpFormWidget from "./HelpFormWidget";
 import VenueDetailsShimmer from "./VenueDetailsShimmer";
 
-const VENUE_URL = "https://serverforsportsbuddy.onrender.com/api/venues/";
+import { BiSolidShieldPlus } from "react-icons/bi";
+import { VENUE_URL } from "../../utils/constants";
+
 const AUTO_SCROLL_INTERVAL = 5000;
 
 const slugifyCity = (name) =>
@@ -152,172 +154,178 @@ const VenueDetails = () => {
     .filter(Boolean);
 
   return (
-    <div className="vdn-venue-page">
-      <button
-        onClick={() => navigate(`/${selectedCitySlug || ""}`)}
-        className="vdn-back-city-btn"
-        aria-label={`Back to ${selectedCity?.name}`}
-      >
-        <FaArrowLeft style={{ marginRight: "6px" }} />
-        Back to {selectedCity?.name || "City"}
-      </button>
+    <div className="detcontainer">
+      <div className="vdn-venue-page">
+        <button
+          onClick={() => navigate(`/${selectedCitySlug || ""}`)}
+          className="vdn-back-city-btn"
+          aria-label={`Back to ${selectedCity?.name}`}
+        >
+          <FaArrowLeft style={{ marginRight: "6px" }} />
+          Back to {selectedCity?.name || "City"}
+        </button>
 
-      <div className="vdn-venue-header">
-        <h1 className="vdn-venue-title">{name}</h1>
-        <div className="vdn-venue-underline" />
-        <p className="vdn-venue-area">{area || "Unknown area"}</p>
-      </div>
-
-      <div className="vdn-venue-columns">
-        <div className="vdn-left-column">
-          <div
-            className="vdn-carousel-box"
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-          >
-            {images.length > 0 && (
-              <>
-                <img
-                  src={images[imgIndex].url}
-                  alt={`Venue image ${imgIndex + 1}`}
-                  className="vdn-carousel-img"
-                  draggable={false}
-                />
-
-                <button
-                  className="vdn-arrow vdn-arrow-left"
-                  aria-label="Previous image"
-                  onClick={prevImage}
-                >
-                  <FaChevronLeft />
-                </button>
-                <button
-                  className="vdn-arrow vdn-arrow-right"
-                  aria-label="Next image"
-                  onClick={nextImage}
-                >
-                  <FaChevronRight />
-                </button>
-
-                <div className="vdn-carousel-dots">
-                  {images.map((_, i) => (
-                    <button
-                      key={i}
-                      className={`vdn-dot ${i === imgIndex ? "active" : ""}`}
-                      onClick={() => handleUserInteraction(i)}
-                      aria-label={`Go to image ${i + 1}`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-
-          <section className="vdn-boxed-section">
-            <h2>Sports Available</h2>
-            <div className="vdn-sports-list">
-              {matchedSports.map((sport, i) => (
-                <div
-                  key={i}
-                  className="vdn-sport-icon-wrapper"
-                  tabIndex={0}
-                  aria-label={sport.name}
-                  title={sport.name}
-                >
-                  <img
-                    src={sport.v2GrayIcon}
-                    alt={sport.name}
-                    className="vdn-sport-icon"
-                    onError={(e) =>
-                      (e.target.src =
-                        "https://playo.gumlet.io/V3SPORTICONS/SP2.png?w=96&q=75")
-                    }
-                  />
-                  <span className="vdn-sport-tooltip">{sport.name}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="vdn-boxed-section vdn-amenities-section">
-            <h2>Amenities</h2>
-            <div className="vdn-amenities-list">
-              {amenities.map((am, i) => (
-                <div key={i} className="vdn-amenity-item">
-                  <FaCheckCircle className="vdn-amenity-icon" />
-                  <span>{am}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+        <div className="vdn-venue-header">
+          <h1 className="vdn-venue-title">{name}</h1>
+          <div className="vdn-venue-underline" />
+          <p className="vdn-venue-area">{area || "Unknown area"}</p>
         </div>
 
-        <div className="vdn-right-column">
-          <div className="vdn-booking-box">
-            <button
-              className="vdn-book-btn"
-              onClick={() => navigate(`/booking-successful`)}
+        <div className="vdn-venue-columns">
+          <div className="vdn-left-column">
+            <div
+              className="vdn-carousel-box"
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
             >
-              Book Now
-            </button>
+              {images.length > 0 && (
+                <>
+                  <img
+                    src={images[imgIndex].url}
+                    alt={`Venue image ${imgIndex + 1}`}
+                    className="vdn-carousel-img"
+                    draggable={false}
+                  />
 
-            <div className="vdn-rating-section">
-              <div className="vdn-rating-row">
-                <div className="vdn-rating-box">
-                  <FaStar className="vdn-rating-star" />
-                  <span className="vdn-rating-value">{avgRating || "N/A"}</span>
-                  {ratingCount && (
-                    <span className="vdn-rating-count">
-                      ({ratingCount} ratings)
+                  <button
+                    className="vdn-arrow vdn-arrow-left"
+                    aria-label="Previous image"
+                    onClick={prevImage}
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  <button
+                    className="vdn-arrow vdn-arrow-right"
+                    aria-label="Next image"
+                    onClick={nextImage}
+                  >
+                    <FaChevronRight />
+                  </button>
+
+                  <div className="vdn-carousel-dots">
+                    {images.map((_, i) => (
+                      <button
+                        key={i}
+                        className={`vdn-dot ${i === imgIndex ? "active" : ""}`}
+                        onClick={() => handleUserInteraction(i)}
+                        aria-label={`Go to image ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <section className="vdn-boxed-section">
+              <h2>Sports Available</h2>
+              <div className="vdn-sports-list">
+                {matchedSports.map((sport, i) => (
+                  <div
+                    key={i}
+                    className="vdn-sport-icon-wrapper"
+                    tabIndex={0}
+                    aria-label={sport.name}
+                    title={sport.name}
+                  >
+                    <img
+                      src={sport.v2GrayIcon}
+                      alt={sport.name}
+                      className="vdn-sport-icon"
+                      onError={(e) =>
+                        (e.target.src =
+                          "https://playo.gumlet.io/V3SPORTICONS/SP2.png?w=96&q=75")
+                      }
+                    />
+                    <span className="vdn-sport-tooltip">{sport.name}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="vdn-boxed-section vdn-amenities-section">
+              <h2>Amenities</h2>
+              <div className="vdn-amenities-list">
+                {amenities.map((am, i) => (
+                  <div key={i} className="vdn-amenity-item">
+                    <FaCheckCircle className="vdn-amenity-icon" />
+                    <span>{am}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <div className="vdn-right-column">
+            <div className="vdn-booking-box">
+              <button
+                className="vdn-book-btn"
+                onClick={() => navigate(`/booking-successful`)}
+              >
+                Book Now
+              </button>
+
+              <div className="vdn-rating-section">
+                <div className="vdn-rating-row">
+                  <div className="vdn-rating-box">
+                    <FaStar className="vdn-rating-star" />
+                    <span className="vdn-rating-value">
+                      {avgRating || "N/A"}
                     </span>
+                    {ratingCount && (
+                      <span className="vdn-rating-count">
+                        ({ratingCount} ratings)
+                      </span>
+                    )}
+                  </div>
+
+                  {avgRating > 4.5 && (
+                    <div className="vdn-safe-badge">
+                      <BiSolidShieldPlus className="vdn-safe-icon" /> Safe &
+                      Hygienic
+                    </div>
                   )}
                 </div>
-
-                {avgRating > 4.5 && (
-                  <div className="vdn-safe-badge">
-                    <FaShieldAlt /> Safe & Hygienic
-                  </div>
-                )}
               </div>
             </div>
-          </div>
 
-          {timings && (
+            {timings && (
+              <div className="vdn-info-box">
+                <h3 className="vdn-info-title">Timings</h3>
+                <p className="vdn-info-text">
+                  <FaClock /> {timings}
+                </p>
+              </div>
+            )}
+
             <div className="vdn-info-box">
-              <h3 className="vdn-info-title">Timings</h3>
+              <h3 className="vdn-info-title">Location</h3>
               <p className="vdn-info-text">
-                <FaClock /> {timings}
+                <FaMapMarkerAlt className="vdn-info-icon" />
+                {fullAddress}
+              </p>
+              <div className="vdn-map-container">
+                <iframe
+                  title="Venue Map"
+                  src={mapEmbedUrl}
+                  className="vdn-map-frame"
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+
+            <div className="vdn-info-box">
+              <h3 className="vdn-info-title">Contact</h3>
+              <p className="vdn-info-text">
+                <FaPhoneAlt /> {inquiryPhone || "N/A"}
               </p>
             </div>
-          )}
-
-          <div className="vdn-info-box">
-            <h3 className="vdn-info-title">Location</h3>
-            <p className="vdn-info-text">
-              <FaMapMarkerAlt /> {fullAddress}
-            </p>
-            <div className="vdn-map-container">
-              <iframe
-                title="Venue Map"
-                src={mapEmbedUrl}
-                className="vdn-map-frame"
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </div>
-
-          <div className="vdn-info-box">
-            <h3 className="vdn-info-title">Contact</h3>
-            <p className="vdn-info-text">
-              <FaPhoneAlt /> {inquiryPhone || "N/A"}
-            </p>
           </div>
         </div>
-      </div>
 
-      <HelpFormWidget />
+        <HelpFormWidget />
+      </div>
     </div>
   );
 };

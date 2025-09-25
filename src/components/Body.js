@@ -9,7 +9,7 @@ import { FaSearch, FaStar } from "react-icons/fa";
 import { setPageNo } from "../features/citySlice";
 
 const AUTO_SCROLL_LIMIT = 40;
-const CHUNK_SIZE = 16;
+const CHUNK_SIZE = 32;
 
 const Body = () => {
   const dispatch = useDispatch();
