@@ -23,13 +23,11 @@
 
 ## 📸 Screenshots
 
-<div style="display: flex; gap: 12px; overflow-x: auto; padding: 12px; scrollbar-width: none;">
+<div style="display: flex; gap: 12px; overflow-x: auto; padding: 12px;">
   <img src="https://i.ibb.co/FkmRFNhh/sports-buddy-alpha-vercel-app-i-Pad-Air.png" alt="Screenshot 1" width="400"/>
   <img src="https://i.ibb.co/WN7mZSnr/sports-buddy-alpha-vercel-app-i-Pad-Air-1.png" alt="Screenshot 2" width="400"/>
-   <img src="https://i.ibb.co/Gf2fLQhZ/sports-buddy-alpha-vercel-app-i-Pad-Air-2.png" alt="Screenshot 3" width="400"/>
+  <img src="https://i.ibb.co/Gf2fLQhZ/sports-buddy-alpha-vercel-app-i-Pad-Air-2.png" alt="Screenshot 3" width="400"/>
   <img src="https://i.ibb.co/7xD2kS4g/sports-buddy-alpha-vercel-app-i-Pad-Air-3.png" alt="Screenshot 4" width="400"/>
- 
-  
 </div>
 
 _(➡️ Scroll horizontally to explore all screenshots)_
