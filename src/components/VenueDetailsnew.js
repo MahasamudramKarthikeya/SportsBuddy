@@ -145,9 +145,12 @@ const VenueDetails = () => {
   } = venue;
 
   const fullAddress = [address, country].filter(Boolean).join(", ");
-  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
-    fullAddress
-  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  const mapEmbedUrl =
+    venue?.lat && venue?.lng
+      ? `https://www.google.com/maps?q=${venue.lat},${venue.lng}&hl=es;z=14&output=embed`
+      : `https://maps.google.com/maps?q=${encodeURIComponent(
+          fullAddress
+        )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
   const matchedSports = sports
     .map((sportId) => allSports.find((s) => s.sportId === sportId))
