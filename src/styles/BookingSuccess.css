@@ -1,0 +1,410 @@
+.bs-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 90vh;
+  background: #f4f4f6;
+  font-family: "Poppins", sans-serif;
+  padding: 16px;
+}
+
+.bs-ticket {
+  width: 800px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.bs-ticket-header {
+  background: #00b157;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.bs-ticket-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.bs-subtitle {
+  margin-top: 4px;
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.bs-ticket-main {
+  display: flex;
+  padding: 24px;
+  gap: 24px;
+}
+
+.bs-left {
+  flex: 2;
+}
+
+.bs-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-sport-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: #f2f2f2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.bs-sport-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.bs-venue-info {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.bs-venue-details h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.bs-venue-details p {
+  margin: 4px 0 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.bs-booking-details .bs-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+
+.bs-total {
+  color: #00b157;
+}
+
+.bs-row.bs-total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 8px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.bs-row.bs-location,
+.bs-row.bs-timings {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bs-qr-text {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #999;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.bs-perforation {
+  border-top: 2px dashed #ccc;
+  margin: 0 24px;
+}
+
+.bs-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px 0 24px;
+}
+
+.bs-home-btn,
+.bs-venue-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.bs-home-btn {
+  background: #00b157;
+  color: white;
+}
+
+.bs-home-btn:hover {
+  background: #008a3f;
+  transform: scale(1.03);
+}
+
+.bs-venue-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.bs-venue-btn:hover {
+  background: #d6d6d6;
+  transform: scale(1.03);
+}
+
+.bs-empty {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 80px 16px;
+}
+
+@media (max-width: 768px) {
+  .bs-ticket {
+    width: 100%;
+    border-radius: 14px;
+  }
+
+  .bs-ticket-main {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .bs-left,
+  .bs-right {
+    flex: unset;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bs-right {
+    margin-top: 16px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .bs-sport-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .bs-sport-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .bs-venue-details h2 {
+    font-size: 1.2rem;
+  }
+
+  .bs-venue-details p {
+    font-size: 0.85rem;
+  }
+
+  .bs-booking-details .bs-row {
+    font-size: 0.85rem;
+    padding: 6px 0;
+  }
+
+  .bs-row.bs-total {
+    font-size: 1rem;
+    padding-top: 10px;
+  }
+
+  .bs-row.bs-location,
+  .bs-row.bs-timings {
+    font-size: 0.8rem;
+  }
+
+  .bs-qr-text {
+    font-size: 0.75rem;
+    margin-top: 8px;
+  }
+
+  .bs-perforation {
+    margin: 0 12px;
+  }
+
+  .bs-btn-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0 20px;
+  }
+
+  .bs-home-btn,
+  .bs-venue-btn {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 0.95rem;
+  }
+
+  .bs-moved-up .bs-ticket {
+    margin-top: -120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bs-ticket {
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .bs-ticket-main {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .bs-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bs-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 16px;
+  }
+
+  .bs-sport-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .bs-sport-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .bs-venue-details h2 {
+    font-size: 1rem;
+  }
+
+  .bs-venue-details p {
+    font-size: 0.75rem;
+  }
+
+  .bs-booking-details .bs-row {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .bs-qr-text {
+    font-size: 0.7rem;
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  .bs-btn-wrapper {
+    display: flex;
+    gap: 10px;
+    margin: 16px 16px 24px 16px;
+    justify-content: space-between;
+  }
+
+  .bs-home-btn,
+  .bs-venue-btn {
+    flex: 1;
+    font-size: 0.85rem;
+    padding: 10px 0;
+  }
+
+  .bs-moved-up .bs-ticket {
+    margin-top: -100px;
+  }
+
+  .bs-perforation {
+    margin: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bs-venue-info {
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .bs-sport-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0;
+
+    .bs-venue-details h2 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .bs-venue-details p {
+      font-size: 0.75rem;
+      margin: 2px 0 0 0;
+    }
+  }
+}
+
+.bs-empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  gap: 16px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 40px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.bs-empty-text {
+  font-size: 1.3rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.bs-empty-btn {
+  padding: 10px 24px;
+  background-color: #00b157;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.bs-empty-btn:hover {
+  background-color: #008a3f;
+}

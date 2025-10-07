@@ -9,11 +9,9 @@ export const HOME_BG =
 
 export const cities = {
   Hyderabad: { lat: 17.385044, lng: 78.486671 },
-
-  Tirupati: { lat: 13.632, lng: 79.423 },
+  Bengaluru: { lat: 12.971599, lng: 77.594566 },
   Visakhapatnam: { lat: 17.7042, lng: 83.2978 },
-
-  Bangalore: { lat: 12.971599, lng: 77.594566 },
+  Tirupati: { lat: 13.632, lng: 79.423 },
   Chennai: { lat: 13.08268, lng: 80.270718 },
   // Vijayawada: { lat: 16.5193, lng: 80.6305 },
   // Mumbai: { lat: 19.07609, lng: 72.877426 },
@@ -32,5 +30,7 @@ export const cities = {
 export const VENUE_URL =
   "https://serverforsportsbuddy.onrender.com/api/venues/";
 
-export const SPORTS_API_ENDPOINT_C =
-  "https://serverforsportsbuddy.onrender.com/api/venues/Hyderabad/smash-pro-arena-pickleball-begumpet-hyderabad";
+export const AVAILABILITY_URL =
+  "https://serverforsportsbuddy.onrender.com/api/availability";
+
+export const API_BASE = "https://serverforsportsbuddy.onrender.com";

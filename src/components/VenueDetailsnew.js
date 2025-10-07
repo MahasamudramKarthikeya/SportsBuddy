@@ -1,12 +1,13 @@
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import BookingModal from "./BookingModal";
+import { VENUE_URL } from "../../utils/constants";
 import {
   FaStar,
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaCheckCircle,
-  FaShieldAlt,
   FaClock,
   FaChevronLeft,
   FaChevronRight,
@@ -15,9 +16,7 @@ import {
 import "../styles/VenueDetailsnew.css";
 import HelpFormWidget from "./HelpFormWidget";
 import VenueDetailsShimmer from "./VenueDetailsShimmer";
-
 import { BiSolidShieldPlus } from "react-icons/bi";
-import { VENUE_URL } from "../../utils/constants";
 
 const AUTO_SCROLL_INTERVAL = 5000;
 
@@ -34,6 +33,9 @@ const VenueDetails = () => {
   const [venue, setVenue] = useState(null);
   const [allSports, setAllSports] = useState([]);
   const [imgIndex, setImgIndex] = useState(0);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [selectedSport, setSelectedSport] = useState(null);
+
   const timerRef = useRef(null);
   const interactionTimeoutRef = useRef(null);
 
@@ -44,7 +46,8 @@ const VenueDetails = () => {
       try {
         const res = await fetch(`${VENUE_URL}${cityFromParams}/${activeKey}`);
         const data = await res.json();
-        setVenue(data?.pageProps?.venueDetails?.venueInfo);
+        const v = data?.pageProps?.venueDetails?.venueInfo;
+        setVenue(v);
         setAllSports(data?.pageProps?.allSports?.list || []);
       } catch (err) {
         console.error("Error fetching venue:", err);
@@ -54,34 +57,50 @@ const VenueDetails = () => {
     fetchVenue();
   }, [cityFromParams, activeKey]);
 
+  const matchedSports =
+    (venue?.sports || [])
+      .map((sportId) => {
+        const sportObj = allSports.find((s) => s.sportId === sportId) || null;
+        if (!sportObj) {
+          return {
+            sportId,
+            name: sportId,
+            v2GrayIcon: "",
+          };
+        }
+        return {
+          ...sportObj,
+          sportId: sportObj.sportId || sportObj._id || sportId,
+          sportCode: sportObj.sportCode || sportObj.code || sportObj.sportId,
+        };
+      })
+      .filter(Boolean) || [];
+
   const startAutoScroll = () => {
     if (timerRef.current) clearInterval(timerRef.current);
 
     timerRef.current = setInterval(() => {
       setImgIndex((prev) =>
-        venue && venue.images.length > 0 ? (prev + 1) % venue.images.length : 0
+        venue && venue.images?.length > 0 ? (prev + 1) % venue.images.length : 0
       );
     }, AUTO_SCROLL_INTERVAL);
   };
 
   useEffect(() => {
     if (!venue?.images?.length) return;
-
     startAutoScroll();
-
     return () => clearInterval(timerRef.current);
   }, [venue]);
 
   const handleUserInteraction = (newIndex) => {
     clearInterval(timerRef.current);
     setImgIndex(newIndex);
-
     if (interactionTimeoutRef.current)
       clearTimeout(interactionTimeoutRef.current);
-
-    interactionTimeoutRef.current = setTimeout(() => {
-      startAutoScroll();
-    }, AUTO_SCROLL_INTERVAL);
+    interactionTimeoutRef.current = setTimeout(
+      () => startAutoScroll(),
+      AUTO_SCROLL_INTERVAL
+    );
   };
 
   const prevImage = () => {
@@ -89,7 +108,6 @@ const VenueDetails = () => {
     const newIndex = (imgIndex - 1 + venue.images.length) % venue.images.length;
     handleUserInteraction(newIndex);
   };
-
   const nextImage = () => {
     if (!venue?.images?.length) return;
     const newIndex = (imgIndex + 1) % venue.images.length;
@@ -99,26 +117,16 @@ const VenueDetails = () => {
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
-  const onTouchStart = (e) => {
-    touchStartX.current = e.changedTouches[0].clientX;
-  };
-
+  const onTouchStart = (e) =>
+    (touchStartX.current = e.changedTouches[0].clientX);
   const onTouchEnd = (e) => {
     touchEndX.current = e.changedTouches[0].clientX;
     handleSwipeGesture();
   };
-
   const handleSwipeGesture = () => {
     if (touchStartX.current === null || touchEndX.current === null) return;
     const deltaX = touchStartX.current - touchEndX.current;
-
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX > 0) {
-        nextImage();
-      } else {
-        prevImage();
-      }
-    }
+    if (Math.abs(deltaX) > 50) deltaX > 0 ? nextImage() : prevImage();
     touchStartX.current = null;
     touchEndX.current = null;
   };
@@ -141,7 +149,6 @@ const VenueDetails = () => {
     ratingCount,
     timings,
     inquiryPhone,
-    sports = [],
   } = venue;
 
   const fullAddress = [address, country].filter(Boolean).join(", ");
@@ -151,10 +158,6 @@ const VenueDetails = () => {
       : `https://maps.google.com/maps?q=${encodeURIComponent(
           fullAddress
         )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-
-  const matchedSports = sports
-    .map((sportId) => allSports.find((s) => s.sportId === sportId))
-    .filter(Boolean);
 
   return (
     <div className="detcontainer">
@@ -175,6 +178,7 @@ const VenueDetails = () => {
         </div>
 
         <div className="vdn-venue-columns">
+          {/* LEFT COLUMN */}
           <div className="vdn-left-column">
             <div
               className="vdn-carousel-box"
@@ -185,11 +189,10 @@ const VenueDetails = () => {
                 <>
                   <img
                     src={images[imgIndex].url}
-                    alt={`Venue image ${imgIndex + 1}`}
+                    alt={`Venue ${imgIndex + 1}`}
                     className="vdn-carousel-img"
                     draggable={false}
                   />
-
                   <button
                     className="vdn-arrow vdn-arrow-left"
                     aria-label="Previous image"
@@ -219,19 +222,23 @@ const VenueDetails = () => {
               )}
             </div>
 
+            {/* Sports */}
             <section className="vdn-boxed-section">
               <h2>Sports Available</h2>
               <div className="vdn-sports-list">
                 {matchedSports.map((sport, i) => (
                   <div
-                    key={i}
-                    className="vdn-sport-icon-wrapper"
+                    key={`${sport.sportId || sport.name}-${i}`}
+                    className={`vdn-sport-icon-wrapper ${
+                      selectedSport?.sportId === sport.sportId ? "active" : ""
+                    }`}
                     tabIndex={0}
                     aria-label={sport.name}
                     title={sport.name}
+                    onClick={() => setSelectedSport(sport)}
                   >
                     <img
-                      src={sport.v2GrayIcon}
+                      src={sport.v2GrayIcon || sport.icon || ""}
                       alt={sport.name}
                       className="vdn-sport-icon"
                       onError={(e) =>
@@ -245,6 +252,7 @@ const VenueDetails = () => {
               </div>
             </section>
 
+            {/* Amenities */}
             <section className="vdn-boxed-section vdn-amenities-section">
               <h2>Amenities</h2>
               <div className="vdn-amenities-list">
@@ -258,14 +266,39 @@ const VenueDetails = () => {
             </section>
           </div>
 
+          {/* RIGHT COLUMN */}
           <div className="vdn-right-column">
             <div className="vdn-booking-box">
               <button
                 className="vdn-book-btn"
-                onClick={() => navigate(`/booking-successful`)}
+                onClick={() => setIsBookingOpen(true)}
               >
                 Book Now
               </button>
+
+              <BookingModal
+                isOpen={isBookingOpen}
+                onClose={() => setIsBookingOpen(false)}
+                venue={venue}
+                sports={matchedSports}
+                initialSport={selectedSport}
+                onConfirm={(court, slots, totalPrice) => {
+                  console.log(
+                    "Confirmed booking:",
+                    court,
+                    slots,
+                    "total:",
+                    totalPrice
+                  );
+                  setIsBookingOpen(false);
+
+                  alert(
+                    `Booking confirmed: ${court.courtName}\nSlots: ${slots
+                      .map((s) => s.time)
+                      .join(", ")}\nTotal: ₹${totalPrice}`
+                  );
+                }}
+              />
 
               <div className="vdn-rating-section">
                 <div className="vdn-rating-row">
@@ -321,7 +354,7 @@ const VenueDetails = () => {
             <div className="vdn-info-box">
               <h3 className="vdn-info-title">Contact</h3>
               <p className="vdn-info-text">
-                <FaPhoneAlt /> {inquiryPhone || "N/A"}
+                <FaPhoneAlt /> {venue?.inquiryPhone || inquiryPhone || "N/A"}
               </p>
             </div>
           </div>

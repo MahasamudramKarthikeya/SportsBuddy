@@ -272,8 +272,6 @@ body {
   white-space: nowrap;
 } */
 
-/* Info boxes */
-
 .vdn-info-icon {
   font-size: 20px;
   margin-right: 2px;
@@ -420,4 +418,90 @@ body {
   padding: 20px 10px;
   justify-content: center;
   scroll-behavior: smooth;
+}
+
+/* LEFT COLUMN FIX */
+.vdn-left-column {
+  flex: 0 0 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* CAROUSEL CONTAINER */
+.vdn-carousel-box {
+  position: relative;
+  width: 650px;
+  height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+/* IMAGE FIX */
+.vdn-carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+  transition: opacity 0.8s ease;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .vdn-venue-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .vdn-left-column,
+  .vdn-right-column {
+    flex: 1 1 100%;
+  }
+
+  .vdn-carousel-box {
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+  }
+}
+
+/* ================= MOBILE RESPONSIVE <=480px ================= */
+@media (max-width: 480px) {
+  .vdn-venue-columns {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .vdn-left-column,
+  .vdn-right-column {
+    flex: 1 1 100%;
+  }
+
+  .vdn-carousel-box {
+    width: 340px;
+    height: 420px;
+    margin: 0 auto;
+  }
+
+  .vdn-carousel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .vdn-boxed-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .vdn-venue-title {
+    font-size: 1.6rem;
+  }
 }

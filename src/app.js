@@ -18,10 +18,9 @@ import Contact from "./Contact";
 import Error from "./Error";
 import Home from "./Home";
 import VenueDetailsnew from "./components/VenueDetailsnew";
-import BookingSuccessful from "./components/BookingSuccessful";
+import BookingSuccessful from "./components/BookingSuccess";
 import Footer from "./components/Footer";
 
-// ScrollToTop component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -32,8 +31,6 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Layout component
-// Layout component
 const AppLayout = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/" || location.pathname === "/home";
@@ -70,7 +67,7 @@ const appRouter = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "venuedetails/:city/:activeKey", element: <VenueDetailsnew /> },
-      { path: "booking-successful", element: <BookingSuccessful /> },
+      { path: "booking-success", element: <BookingSuccessful /> },
     ],
   },
 ]);
