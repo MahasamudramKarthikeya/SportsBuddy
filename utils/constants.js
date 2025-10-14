@@ -4,8 +4,7 @@ export const IMG_URL =
 export const LOGO =
   "https://i.ibb.co/Y70R4CBY/Picsart-25-09-18-21-57-46-332.jpg";
 
-export const HOME_BG =
-  "https://wallpapers.com/images/hd/table-tennis-in-basement-wlmedk9xnee9tp0f.jpg";
+export const HOME_BG = "https://i.ibb.co/93yVCmg9/sports-equipment.jpg";
 
 export const cities = {
   Hyderabad: { lat: 17.385044, lng: 78.486671 },
